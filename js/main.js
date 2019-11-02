@@ -184,7 +184,10 @@ const main = function () {
 
   localStorage.clear();
 
-  displayFirstQuestion();
+  document.querySelector('#getStarted').addEventListener('click', (e) => {
+    e.preventDefault();
+    displayFirstQuestion();
+  });
 
 };
 
