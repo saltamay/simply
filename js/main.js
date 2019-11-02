@@ -1,95 +1,191 @@
+let userInfo = {};
 
+const handleFirstQuestion = (e) => {
+  console.log(e)
+  userInfo.numOfBeds = e.dataset.value;
 
-var main = (function(){
+  document.getElementById("mainContainer").innerHTML = `  <div class="container" id='q2'>
+<div class="row" >
+    <div class="col s12 m10 offset-m1 l10 offset-l1 xl12 ">
+      <div class="card red darken-4 z-depth-4">
+        <div id='sliderCard' class="card-content white-text  ">
+          <span class="card-title ">
+            <i class='material-icons left green-text ' >monetization_on</i>
+            Question 2 :
+          </span>
+          <p>WHAT ARE YOU LOOKING TO PAY?</p>
+        </div>
+        <div class="container ">
+          <div id='sliderDisplay' class='center-align '>
+              <span id='sliderText' class='z-depth-2 green-text text-darken-2' >
+                <span>UP TO: $<span id='rentValue' >2700</span> PER MONTH</span>
+              </span>
+          </div>
+        </div>
+        <div class="container">
+            <form action="#">
+                <p class="range-field ">
+                  <input class="z-depth-2" type="range" id="sliderInput" min="400" max="5000" />
+                </p>
+              </form>
+        </div>
+        <div class='container center-align'>
+          <a href="#" class='btn' onclick="handleSecondQuestion()">Submit 
+            <i class='material-icons right'>send</i>
+          </a>
+        </div>
+        
+      </div>
+    </div>
+  </div>
+</div>
 
+<script>
+    document.onload = document.getElementById('sliderInput').addEventListener('input',function(e){
+      document.getElementById('rentValue').innerText =e.target.value
+    })
+  </script>
 
-    
+`;
 
-    // this is the mode   ++ it only takes care of data related stuff ++ if it needs any visual, it will as x
-    var model = {
-        data:{
-            inputData:{
-                bedRooms: '',
-                rentFee: '',
-                movingToLocation: '',
-                caresMostAbt: '',
-            },
-        },
-        init:async function(){
-            await this.forInit.initTheData(); //first get the needed data
-        },
-        forInit:{
-            initTheData: async function(){
-                if (localStorage.houseListing){ //if already have data, then move on
-                    return
-                } else { // else, get the data and prepare it
-                    await model.fetchData('init')
-                }
-            }
-        },
-        fetchData: async function(x){
-            let d = new Date(); // this will be the time stamp of how fresh the data is:
-            let day;
-            let url; 
-            let data;
-            if (x === 'init'){
-                url = `https://cors-anywhere.herokuapp.com/https://www.zillow.com/search/GetSearchPageState.htm?searchQueryState=%7B%22pagination%22%3A%7B%7D%2C%22usersSearchTerm%22%3A%22toronto%22%2C%22mapBounds%22%3A%7B%22west%22%3A-79.77669883105466%2C%22east%22%3A-78.97607016894528%2C%22south%22%3A43.69071018618643%2C%22north%22%3A43.725455049837734%7D%2C%22regionSelection%22%3A%5B%7B%22regionId%22%3A792680%2C%22regionType%22%3A6%7D%5D%2C%22isMapVisible%22%3Atrue%2C%22filterState%22%3A%7B%22isForSaleByAgent%22%3A%7B%22value%22%3Afalse%7D%2C%22isForSaleByOwner%22%3A%7B%22value%22%3Afalse%7D%2C%22isNewConstruction%22%3A%7B%22value%22%3Afalse%7D%2C%22isForSaleForeclosure%22%3A%7B%22value%22%3Afalse%7D%2C%22isComingSoon%22%3A%7B%22value%22%3Afalse%7D%2C%22isAuction%22%3A%7B%22value%22%3Afalse%7D%2C%22isPreMarketForeclosure%22%3A%7B%22value%22%3Afalse%7D%2C%22isPreMarketPreForeclosure%22%3A%7B%22value%22%3Afalse%7D%2C%22isMakeMeMove%22%3A%7B%22value%22%3Afalse%7D%2C%22isForRent%22%3A%7B%22value%22%3Atrue%7D%7D%2C%22isListVisible%22%3Atrue%7D&includeMap=true&includeList=false`
-                data = await fetch(url)
-                data = await data.json();
-                day = d.getDate()+'/'+d.getMonth()+'/'+d.getFullYear()
-                localStorage.houseListing = JSON.stringify({ date: day, data: data})
-            }
-        },
-    }
+};
 
+const handleSecondQuestion = () => {
 
+  userInfo.price = document.getElementById("sliderInput").value;
 
-    // this is the control   ++  its called x
-    var x = {
-        init: async function(){
-            model.init();
-            view.init();
-        }
-    }
+  const q3 = `  <div class="container " id='q3'>
+<div class="row" >
+    <div class="col s12 m10 offset-m1 l10 offset-l1 xl12 ">
+      <div class="card red darken-4 z-depth-4">
+        <div id='sliderCard' class="card-content white-text  ">
+          <span class="card-title ">
+            <i class='material-icons left green-text ' >my_location</i>
+            Question 3 :
+          </span>
+          <p>WHERE ARE YOU LOOKING TO MOVE?</p>
+        </div>
+        <div class="container">
+            <div class="row">
+                <form class="col s12 center-align">
+                  <div class="row">
+                    <div class="input-field col s12 center-align ">
+                      <i class="material-icons prefix green-text">location_on</i>
+                      <input id="location" type="text" class="validate white-text">
+                      <label  class='green-text' for="location">Example: Toronto</label>
+                    </div>
+                  </div>
+                  <a href="#" class='btn' onclick="handleThirdQuestion()">Submit 
+                      <i class='material-icons right'>send</i>
+                  </a>
+                </form>
+              </div>
+        </div>
+    </div>
+  </div>
+</div>
+</div>`
 
+  document.getElementById("mainContainer").innerHTML = q3;
+};
 
-    // this is the view ++ it only takes care of the visual stuff ++ if it needs data, it will ask x
-    var view = {
-        init:async function(){
-            this.body = document.getElementById('mainContainer');
-            await this.loadPage(0)
-        },
-        loadPage:async function(x){
-            // delete previous page's scripts:
-            let childList = document.getElementsByTagName('head')[0].children
-            for (let i in childList) {  
-                if ( 
-                    (childList[i].tagName !== undefined ) 
-                    && 
-                    (childList[i].tagName.toLowerCase() === 'script' )
-                    ) {
-                        childList[i].remove()
-                    }
-                }
-            }
-    }
+const handleThirdQuestion = () => {
 
+  userInfo.location = document.getElementById("location").value;
 
+  const q4 = `<div class="container " id='q4'>
+<div class="row " >
+    <div class="col s12 m10 offset-m1 l10 offset-l1 xl12 ">
+      <div class="card red darken-4 z-depth-4">
+        <div class="card-content white-text ">
+          <span class="card-title ">
+            <i class='material-icons left green-text ' >show_chart</i>
+            Question 4 :
+          </span>
+          <p>I CARE THE MOST ABOUT:</p>
+        </div>
+        <div class="card-action center-align">
+          <a href="#" class='btn waves-effect waves-light z-depth-2' onclick="handleFourthQuestion(this)" data-value="transportaion">1. convenience of transportation</a>
+          <a href="#" class='btn waves-effect waves-light z-depth-2' onclick="handleFourthQuestion(this)" data-value="price">2. The cheapest price</a>
+          <a href="#" class='btn waves-effect waves-light z-depth-2' onclick="handleFourthQuestion(this)" data-value="location">3. Location</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>`
 
+  document.getElementById("mainContainer").innerHTML = q4;
+};
 
+const handleFourthQuestion = (e) => {
 
- // this is the init 
-    var init = function(){
-        x.init();
-    }
+  userInfo.mostImportant = e.dataset.value;
 
-    //!!!!!!!!!!!!!!!!!!!!! this section creates global variables
-    return {
-        init:init,
-    }
+  console.log(userInfo);
 
-})()
+  saveToLocalStorage();
+}
 
+const saveToLocalStorage = () => {
 
+  // userInfo = JSON.parse(localStorage.getItem('userInfo'));
 
-document.onload = main.init();
+  // if (!userInfo) {
+
+  //   // const users = {};
+
+  //   // users.userInfo.id = userInfo;
+
+  //   localStorage.setItem('users', JSON.stringify('userInfo'));
+  // } else {
+
+  //   const users = JSON.parse(localStorage.getItem('users'));
+
+  //   users.userInfo.id = userInfo;
+
+  //   localStorage.setItem('users', JSON.stringify('users'));
+  // }
+
+  localStorage.setItem('userInfo', JSON.stringify(userInfo));
+
+}
+
+const displayFirstQuestion = () => {
+
+  var q1 = `<div class="container" id='q1'>
+<div class="row " >
+    <div class="col s12 m10 offset-m1 l10 offset-l1 xl12 ">
+      <div class="card red darken-4 z-depth-4">
+        <div class="card-content white-text ">
+          <span class="card-title ">
+            <i class='material-icons left green-text ' >info_outline</i>
+            Question 1 :
+          </span>
+          <p>HOW MANY BEDROOMS DO YOU WANT?</p>
+        </div>
+        <div class="card-action center-align">
+          <a href="#" class='btn waves-effect waves-light z-depth-2' onclick="handleFirstQuestion(this)" data-value="studio">Studio</a>
+          <a href="#" class='btn waves-effect waves-light z-depth-2' onclick="handleFirstQuestion(this)" data-value="oneBed">1 Bed</a>
+          <a href="#" class='btn waves-effect waves-light z-depth-2' onclick="handleFirstQuestion(this)" data-value="twoBed">2 Beds</a>
+          <a href="#" class='btn waves-effect waves-light z-depth-2' onclick="handleFirstQuestion(this)" data-value="threePlus"">3+ Beds</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>`
+
+  document.getElementById("mainContainer").innerHTML = q1;
+
+  console.log('this works');
+
+};
+
+const main = function () {
+
+  localStorage.clear();
+
+  displayFirstQuestion();
+
+};
+
+main();
