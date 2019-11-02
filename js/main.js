@@ -38,16 +38,10 @@ const handleFirstQuestion = (e) => {
       </div>
     </div>
   </div>
-</div>
-
-<script>
-    document.onload = document.getElementById('sliderInput').addEventListener('input',function(e){
-      document.getElementById('rentValue').innerText =e.target.value
-    })
-  </script>
-
-`;
-
+</div>`;
+  document.onload = document.getElementById('sliderInput').addEventListener('input',function(e){
+    document.getElementById('rentValue').innerText =e.target.value
+  })
 };
 
 const handleSecondQuestion = () => {
