@@ -287,7 +287,7 @@ const getListing = async function(){
   url = './js/data.json'
   data = await fetch(url)
   data = await data.json();
-  localStorage.houseListing = JSON.stringify(data.searchResults.mapResults)
+  localStorage.houseListing = JSON.stringify(data.searchResults.listResults);
 }
 
 
