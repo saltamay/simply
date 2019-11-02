@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 /* Custom Stylesheet */
 /**
  * Use this file to override Materialize files so you can update
@@ -88,8 +88,7 @@
 .section-feature .card {
   height: 380px;
 }
-||||||| merged common ancestors
-=======
+
 /* Custom Stylesheet */
 /**
  * Use this file to override Materialize files so you can update
@@ -103,8 +102,6 @@
  .btn{
    margin: 10px
  }
-
-
 
  /* this section is for Question 2 */
  #sliderCard{
@@ -120,6 +117,3 @@
   border-radius: 5px;
  }
 
-
-
->>>>>>> 737ab6e149275d228195f8ab6ff2ab0aab83bcb5
