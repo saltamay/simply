@@ -153,6 +153,12 @@ const handleFourthQuestion = (e) => {
   const q4 = `<div id="map"></div>`
   document.getElementById("mainContainer").innerHTML = q4;
 
+
+  if (userInfo.mostImportant === 'price') {
+    narrowByPrice();
+  }
+
+  
   displayresults()
 
 }
@@ -175,6 +181,8 @@ const convertLatLong = function(){
     return {lat:list.latLong.latitude,lng:list.latLong.longitude}
   })
   locations = lists
+
+ 
 }
 
 
@@ -231,7 +239,26 @@ const displayFirstQuestion = () => {
 
 };
 
+const narrowByPrice = () => {
+  
+  let listings = JSON.parse(localStorage.getItem('houseListing'));
 
+  listings = listings.data.searchResults.mapResults;
+
+  console.log(listings);
+
+  listings.forEach(listing => {
+    
+    let price = listing.price.slice(2, 3) + listing.price.slice(4, 7);
+    price = parseInt(price);
+    
+    if (price <= parseInt(userInfo.price)) {
+      console.log(listing);
+    }
+  })
+
+
+}
 
 const getListing = async function(){
   // url = `https://cors-anywhere.herokuapp.com/https://www.zillow.com/search/GetSearchPageState.htm?searchQueryState=%7B%22pagination%22%3A%7B%7D%2C%22usersSearchTerm%22%3A%22toronto%22%2C%22mapBounds%22%3A%7B%22west%22%3A-79.77669883105466%2C%22east%22%3A-78.97607016894528%2C%22south%22%3A43.69071018618643%2C%22north%22%3A43.725455049837734%7D%2C%22regionSelection%22%3A%5B%7B%22regionId%22%3A792680%2C%22regionType%22%3A6%7D%5D%2C%22isMapVisible%22%3Atrue%2C%22filterState%22%3A%7B%22isForSaleByAgent%22%3A%7B%22value%22%3Afalse%7D%2C%22isForSaleByOwner%22%3A%7B%22value%22%3Afalse%7D%2C%22isNewConstruction%22%3A%7B%22value%22%3Afalse%7D%2C%22isForSaleForeclosure%22%3A%7B%22value%22%3Afalse%7D%2C%22isComingSoon%22%3A%7B%22value%22%3Afalse%7D%2C%22isAuction%22%3A%7B%22value%22%3Afalse%7D%2C%22isPreMarketForeclosure%22%3A%7B%22value%22%3Afalse%7D%2C%22isPreMarketPreForeclosure%22%3A%7B%22value%22%3Afalse%7D%2C%22isMakeMeMove%22%3A%7B%22value%22%3Afalse%7D%2C%22isForRent%22%3A%7B%22value%22%3Atrue%7D%7D%2C%22isListVisible%22%3Atrue%7D&includeMap=true&includeList=false`
