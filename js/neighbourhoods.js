@@ -76,7 +76,7 @@ const neighbourhoods = [
     id: 75,
     zipcode: "M5B",
     walkScore: 98,
-    facts: "The neighbourhood includes the Church-Wellesley Village, which has long been associated with the city’s LGBT community and which hosts Pride Week events – including the Pride Parade – each summer. It is well-served by transit, with the Yonge subway line running along its eastern edge and several bus and streetcar lines serving the area. Also known as "The Village," this enclave for Toronto's gay community has bustling cafes, eateries and bars. It's known for its week-long, offbeat Halloween celebrations and buzzy club scene. Every June, the neighbourhood celebrates Toronto Pride Month with concerts, parties and parades that draw visitors from around the world. Tranquil Barbara Hall Park features the Toronto AIDS Memorial.",
+    facts: "The neighbourhood includes the Church-Wellesley Village, which has long been associated with the city’s LGBT community and which hosts Pride Week events – including the Pride Parade – each summer. It is well-served by transit, with the Yonge subway line running along its eastern edge and several bus and streetcar lines serving the area. Also known as 'The Village,' this enclave for Toronto's gay community has bustling cafes, eateries and bars. It's known for its week-long, offbeat Halloween celebrations and buzzy club scene. Every June, the neighbourhood celebrates Toronto Pride Month with concerts, parties and parades that draw visitors from around the world. Tranquil Barbara Hall Park features the Toronto AIDS Memorial.",
     isConvenient: true
   },
   {
@@ -175,4 +175,81 @@ const neighbourhoods = [
     facts: "The focal point of this inner-city neighbourhood is the very picturesque Trinity-Bellwoods Park, which spans the entire length of the neighbourhood. This park features a paved walking path that is highlighted by distinguished cast iron lamp poles and a lush greenery. In addition to Trinity-Bellwoods Park, this neighbourhood also features affordable Victorian houses, excellent shopping districts, and convenient access to major transportation routes for motorists and pedestrians.",
     isConvenient: true
   },
+
+  // Malik
+
+  {
+    name: "Yorkdale-Glen Park",
+    //id:0,
+    zipcode: "M6B",
+    walkScore: 84,
+    facts: "This neighbourhood is also home to Lawrence Heights, a community undergoing revitalization, as well as several popular amenities including the Yorkdale and Lawrence Square shopping centres Local parks include Caledonia Park, Wenderly Park, Glen Long Park, Joyce Park, Ranee Park and Yorkdale Park. Dante Alighieri Academy is also situated in Yorkdale-Glen Park as well as Beth Torah Congregation",
+    isConvenient: false
+  },
+  
+  {
+    name: "Englemount-Lawrence",
+    //id:0,
+    zipcode: "M6B",
+    walkScore: 62,
+    facts: "The Englemount-Lawrence neighbourhood, with a population of 22,100, according to the 2011 Statistics Canada data, is bounded by Hwy. 401 to the north, Allen Road to the west, Briar Hill Avenue to the south, and Bathurst Street to the east",
+    isConvenient: false
+  },
+
+  {
+    name: "Yonge-Eglinton",
+    //id:0,
+    zipcode: "M5P",
+    walkScore: 96,
+    facts: "Yonge and Eglinton boasts family-centred neighbourhoods alongside a growing condo culture. Most people have to go kilometres to a movies theatre, but Yonge-and-Eg residents can walk to two multiplexes. Comedy lovers can hit Absolute Comedy at Yuk Yuk’s former location, and the retail and dining options have multiplied",
+    isConvenient: true
+  },
+
+  {
+    name: "Yonge-Eglinton",
+    //id:0,
+    zipcode: "M4P",
+    walkScore: 98,
+    facts: "Yonge and Eglinton boasts family-centred neighbourhoods alongside a growing condo culture. Most people have to go kilometres to a movies theatre, but Yonge-and-Eg residents can walk to two multiplexes. Comedy lovers can hit Absolute Comedy at Yuk Yuk’s former location, and the retail and dining options have multiplied",
+    isConvenient: true
+  },
+
+  {
+    name: "Forest Hill North",
+    //id:0,
+    zipcode: "M6C",
+    walkScore: 89,
+    facts: "Considered one of the city’s most prestigious areas, Forest Hill is a stunning community characterized by winding roads, sloping hills, and various little parks that give the neighbourhood its distinctive charm.",
+    isConvenient: false
+  },
+
+  {
+    name: "Oakwood-Vaughan",
+    //id:0,
+    zipcode: "M6C",
+    walkScore: 40,
+    facts: "Oakwood-Vaughan encompasses a large area with schools catering to the Catholic, French Catholic and non-denominational communities. The Oakwood Village Library and Arts Centre offers a place for local artists to showcase community-based works. The Fairbank Memorial Park is Oakwood-Vaughan’s largest with basketball and bocce courts and an outdoor pool.",
+    isConvenient: false
+  },
+
+  {
+    name: "Rosedale-Moore Park",
+    //id:0,
+    zipcode: "M4T",
+    walkScore: 90,
+    facts: "The toney neighbourhood of Rosedale-Moore Park is a quiet residential area located between the northern boundary of Moore Avenue, the southern boundary of Bloor Street, the western boundary of Yonge Street and the Moore Park Ravine and Bayview Avenue along its eastern edge. It has plenty of greenery, with parts of the Moore Park Ravine, Chorley Park, the Beltline Trail, David A. Balfour Park, Beaumont Park and other public green spaces.",
+    isConvenient: true
+  },
+
+  {
+    name: "Mount Pleasant West",
+    //id:0,
+    zipcode: "M4S",
+    walkScore: 98,
+    facts: "The neighbourhood of Mount Pleasant West is bounded by Yonge Street to the west, Mount Pleasant Road to the East, Keewatin Avenue to the north and the Kay Gardner Beltline to the south. Largely residential in nature, it includes several highrise apartment and condo complexes, mostly located north of Eglinton Avenue, along with a large number of single-family residences to the south.",
+    isConvenient: true
+  },
+
+
+
 ]
