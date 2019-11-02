@@ -1,7 +1,6 @@
 let userInfo = {};
 
 const handleFirstQuestion = (e) => {
-  console.log(e)
   userInfo.numOfBeds = e.dataset.value;
 
   document.getElementById("mainContainer").innerHTML = `  <div class="container" id='q2'>
@@ -170,13 +169,30 @@ const displayFirstQuestion = () => {
 
   document.getElementById("mainContainer").innerHTML = q1;
 
-  console.log('this works');
 
 };
 
-const main = function () {
 
-  localStorage.clear();
+
+const getListing = async function(){
+  
+  let d = new Date(); // this will be the time stamp of how fresh the data is:
+  let day;
+  let url; 
+  let data;
+  url = `https://cors-anywhere.herokuapp.com/https://www.zillow.com/search/GetSearchPageState.htm?searchQueryState=%7B%22pagination%22%3A%7B%7D%2C%22usersSearchTerm%22%3A%22toronto%22%2C%22mapBounds%22%3A%7B%22west%22%3A-79.77669883105466%2C%22east%22%3A-78.97607016894528%2C%22south%22%3A43.69071018618643%2C%22north%22%3A43.725455049837734%7D%2C%22regionSelection%22%3A%5B%7B%22regionId%22%3A792680%2C%22regionType%22%3A6%7D%5D%2C%22isMapVisible%22%3Atrue%2C%22filterState%22%3A%7B%22isForSaleByAgent%22%3A%7B%22value%22%3Afalse%7D%2C%22isForSaleByOwner%22%3A%7B%22value%22%3Afalse%7D%2C%22isNewConstruction%22%3A%7B%22value%22%3Afalse%7D%2C%22isForSaleForeclosure%22%3A%7B%22value%22%3Afalse%7D%2C%22isComingSoon%22%3A%7B%22value%22%3Afalse%7D%2C%22isAuction%22%3A%7B%22value%22%3Afalse%7D%2C%22isPreMarketForeclosure%22%3A%7B%22value%22%3Afalse%7D%2C%22isPreMarketPreForeclosure%22%3A%7B%22value%22%3Afalse%7D%2C%22isMakeMeMove%22%3A%7B%22value%22%3Afalse%7D%2C%22isForRent%22%3A%7B%22value%22%3Atrue%7D%7D%2C%22isListVisible%22%3Atrue%7D&includeMap=true&includeList=false`
+  data = await fetch(url)
+  data = await data.json();
+  day = d.getDate()+'/'+d.getMonth()+'/'+d.getFullYear()
+  localStorage.houseListing = JSON.stringify({ date: day, data: data})
+  
+}
+
+
+const main = async function () {
+  localStorage.clear(); //clears the local storgage
+
+  await getListing()
 
   document.querySelector('#getStarted').addEventListener('click', (e) => {
     e.preventDefault();
