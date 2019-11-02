@@ -1,3 +1,94 @@
+
+/* Custom Stylesheet */
+/**
+ * Use this file to override Materialize files so you can update
+ * the core Materialize files in the future
+ *
+ * Made By MaterializeCSS.com
+ */
+
+ html {
+   color: #606060;
+   font-family: 'Roboto', sans-serif;
+ }
+
+ header {
+   height: 6.5vh;
+ }
+
+ nav {
+   height: 100%;
+   padding: 0 90px 8px 90px;
+ }
+
+ .signin {
+   border: 1px solid #EF5350;
+   border-radius: 5px;
+ }
+
+ .signup {
+   border-radius: 5px;
+ }
+
+ .hero h3 {
+   font-weight: 900;
+   margin-bottom: 36px;
+ }
+
+ /* .logo-container {
+   padding: 15px 0;
+ } */
+
+ .section-hero {
+   height: 90vh;
+   padding: 0;
+ }
+
+.icon-block {
+  padding: 0 16px;
+}
+.icon-block .material-icons {
+	font-size: inherit;
+}
+
+.section-map {
+  height: 92vh;
+  background-image: url('../img/map-colour-800px.png');
+  background-size: cover;
+}
+
+.section-banner {
+  height: 90vh;
+}
+
+.underline {
+  border-bottom: 2px solid rgba(211, 211, 211, 0.5);
+}
+
+.map {
+  padding: 0 !important;
+}
+
+.hero {
+  margin-top: 30%;
+}
+
+.get-started {
+  margin-top: 48px;
+}
+
+.get-started button {
+  border-radius: 5px;
+}
+
+.section-feature {
+  margin: 168px 0;
+}
+
+.section-feature .card {
+  height: 380px;
+}
+
 /* Custom Stylesheet */
 /**
  * Use this file to override Materialize files so you can update
