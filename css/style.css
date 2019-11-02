@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /* Custom Stylesheet */
 /**
  * Use this file to override Materialize files so you can update
@@ -87,3 +88,38 @@
 .section-feature .card {
   height: 380px;
 }
+||||||| merged common ancestors
+=======
+/* Custom Stylesheet */
+/**
+ * Use this file to override Materialize files so you can update
+ * the core Materialize files in the future
+ *
+ * Made By MaterializeCSS.com
+ */
+
+
+/* this section is for quetion 1 */
+ .btn{
+   margin: 10px
+ }
+
+
+
+ /* this section is for Question 2 */
+ #sliderCard{
+  padding-bottom: 10px;
+ }
+ #sliderDisplay{
+   padding-bottom: 22px;
+  padding-top: 10px;
+ }
+ #sliderText{
+  background: rgb(255, 233, 233);
+  padding: 10px;
+  border-radius: 5px;
+ }
+
+
+
+>>>>>>> 737ab6e149275d228195f8ab6ff2ab0aab83bcb5
