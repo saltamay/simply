@@ -117,6 +117,10 @@ const handleFourthQuestion = (e) => {
   console.log(userInfo);
 
   saveToLocalStorage();
+
+  if (userInfo.mostImportant === 'price') {
+    narrowByPrice();
+  }
 }
 
 const saveToLocalStorage = () => {
@@ -172,7 +176,26 @@ const displayFirstQuestion = () => {
 
 };
 
+const narrowByPrice = () => {
+  
+  let listings = JSON.parse(localStorage.getItem('houseListing'));
 
+  listings = listings.data.searchResults.mapResults;
+
+  console.log(listings);
+
+  listings.forEach(listing => {
+    
+    let price = listing.price.slice(2, 3) + listing.price.slice(4, 7);
+    price = parseInt(price);
+    
+    if (price <= parseInt(userInfo.price)) {
+      console.log(listing);
+    }
+  })
+
+
+}
 
 const getListing = async function(){
   
