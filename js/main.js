@@ -153,13 +153,17 @@ const handleFourthQuestion = (e) => {
   const q4 = `<div id="map"></div>`
   document.getElementById("mainContainer").innerHTML = q4;
 
-  const listings = narrowByUnit();
+  let listings = [];
+
+  listings = narrowByUnit();
 
   // if (userInfo.mostImportant === 'price') {
     
   // }
 
-  narrowByPrice(listings);
+  listings = narrowByPrice(listings);
+
+  narrowByWalkingDistance(listings);
   
   // displayresults()
 
@@ -189,24 +193,6 @@ const convertLatLong = function(){
 
 
 const saveToLocalStorage = () => {
-
-  // userInfo = JSON.parse(localStorage.getItem('userInfo'));
-
-  // if (!userInfo) {
-
-  //   // const users = {};
-
-  //   // users.userInfo.id = userInfo;
-
-  //   localStorage.setItem('users', JSON.stringify('userInfo'));
-  // } else {
-
-  //   const users = JSON.parse(localStorage.getItem('users'));
-
-  //   users.userInfo.id = userInfo;
-
-  //   localStorage.setItem('users', JSON.stringify('users'));
-  // }
 
   localStorage.setItem('userInfo', JSON.stringify(userInfo));
 
@@ -242,12 +228,6 @@ const displayFirstQuestion = () => {
 };
 
 const narrowByPrice = (listings) => {
-  
-  // let listings = JSON.parse(localStorage.getItem('houseListing'));
-
-  // listings = listings.data.searchResults.mapResults;
-
-  // console.log(listings);
 
   const newListings = [];
 
@@ -280,6 +260,47 @@ const narrowByUnit = () => {
       }
     }
   });
+  return newListings;
+}
+
+const narrowByWalkingDistance = (listings) => {
+
+  const newListings = [];
+
+  listings.forEach(listing => {
+    
+    const waypoint0 = listing.latLong.latitude + ',' + listing.latLong.longitude;
+
+    subwayData.forEach(subwayLocation => {
+
+      const waypoint1 = subwayLocation.latLong.latitude + ',' + subwayLocation.latLong.longitude;
+      
+      $.ajax({
+        url: 'https://route.api.here.com/routing/7.2/calculateroute.json',
+        type: 'GET',
+        dataType: 'jsonp',
+        jsonp: 'jsoncallback',
+        data: {
+          waypoint0: waypoint0,
+          waypoint1: waypoint1,
+          mode: 'fastest;pedestrian',
+          app_id: 'JAsUvJIQP95l3YaTmtT9',
+          app_code: 'm7Ujzi9liyMLwQ27-0IE1Q'
+        },
+        success: function (data) {
+          const distance = data.response.route[0].summary.distance;
+          if (distance <= 750) {
+            newListings.push({
+              listing: listing,
+              subway: subwayLocation,
+              distance: distance
+            });
+          }
+        }
+      });
+    })
+  });
+  console.log(newListings);
   return newListings;
 }
 
