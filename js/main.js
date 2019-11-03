@@ -1,4 +1,38 @@
 let userInfo = {};
+var map;
+var markers;
+var markerCluster;
+var infoWindow;
+var locations;
+
+
+function initMap() {
+  let toronto = {lat: 43.713116, lng: -79.3832}
+  map = new google.maps.Map(document.getElementById('map'), {
+    center: toronto, 
+    zoom: 15
+  });
+
+
+  markers = locations.map(function(location,i){
+    let lat = location.lat;
+    let lng = location.lng;
+    return new google.maps.Marker({
+      position: { lat , lng },
+    });
+  });
+
+  markerCluster = new MarkerClusterer(map, markers,
+    {imagePath: 'https://github.com/googlemaps/v3-utility-library/blob/master/markerclusterer/images/m1.png?raw=true'}
+    );
+
+  console.log(markerCluster)
+
+
+
+}
+
+
 
 const handleFirstQuestion = (e) => {
   userInfo.numOfBeds = e.dataset.value;
@@ -78,12 +112,12 @@ const handleSecondQuestion = () => {
   </div>
 </div>
 </div>`
-
   document.getElementById("mainContainer").innerHTML = q3;
+
+
 };
 
 const handleThirdQuestion = () => {
-
   userInfo.location = document.getElementById("location").value;
 
   const q4 = `<div class="container " id='q4'>
@@ -114,10 +148,45 @@ const handleFourthQuestion = (e) => {
 
   userInfo.mostImportant = e.dataset.value;
 
-  console.log(userInfo);
-
   saveToLocalStorage();
+  
+  const q4 = `<div id="map"></div>`
+  document.getElementById("mainContainer").innerHTML = q4;
+
+  const listings = narrowByUnit();
+
+  // if (userInfo.mostImportant === 'price') {
+    
+  // }
+
+  narrowByPrice(listings);
+  
+  // displayresults()
+
 }
+
+const displayresults = function () {
+  convertLatLong()
+  var apikey = 'AIzaSyAVRcQaZXipelHJy9FFybcFT9VJDmbyBvA';
+  scriptElem = document.createElement('script');
+  scriptElem.async = true;
+  scriptElem.defer = true;
+  scriptElem.src=`https://maps.googleapis.com/maps/api/js?key=${apikey}&callback=initMap`
+  scriptElem.type="text/javascript";
+  document.getElementsByTagName('head')[0].appendChild(scriptElem) 
+}
+
+
+const convertLatLong = function(){
+  var lists = JSON.parse(localStorage.houseListing);
+  lists = lists.map((list,i)=>{
+    return {lat:list.latLong.latitude,lng:list.latLong.longitude}
+  })
+  locations = lists
+
+ 
+}
+
 
 const saveToLocalStorage = () => {
 
@@ -158,9 +227,9 @@ const displayFirstQuestion = () => {
         </div>
         <div class="card-action center-align">
           <a href="#" class='btn waves-effect waves-light z-depth-2' onclick="handleFirstQuestion(this)" data-value="studio">Studio</a>
-          <a href="#" class='btn waves-effect waves-light z-depth-2' onclick="handleFirstQuestion(this)" data-value="oneBed">1 Bed</a>
-          <a href="#" class='btn waves-effect waves-light z-depth-2' onclick="handleFirstQuestion(this)" data-value="twoBed">2 Beds</a>
-          <a href="#" class='btn waves-effect waves-light z-depth-2' onclick="handleFirstQuestion(this)" data-value="threePlus"">3+ Beds</a>
+          <a href="#" class='btn waves-effect waves-light z-depth-2' onclick="handleFirstQuestion(this)" data-value="1">1 Bed</a>
+          <a href="#" class='btn waves-effect waves-light z-depth-2' onclick="handleFirstQuestion(this)" data-value="2">2 Beds</a>
+          <a href="#" class='btn waves-effect waves-light z-depth-2' onclick="handleFirstQuestion(this)" data-value="3">3+ Beds</a>
         </div>
       </div>
     </div>
@@ -172,21 +241,63 @@ const displayFirstQuestion = () => {
 
 };
 
+const narrowByPrice = (listings) => {
+  
+  // let listings = JSON.parse(localStorage.getItem('houseListing'));
 
+  // listings = listings.data.searchResults.mapResults;
+
+  // console.log(listings);
+
+  const newListings = [];
+
+  listings.forEach(listing => {
+    
+    let price = listing.price.slice(2, 3) + listing.price.slice(4, 7);
+    price = parseInt(price);
+    
+    if (price <= parseInt(userInfo.price)) {
+      newListings.push(listing);
+    }
+  });
+  console.log(newListings);
+  return newListings;
+}
+
+const narrowByUnit = () => {
+  
+  let listings = JSON.parse(localStorage.getItem('houseListing'));
+  // console.log(listings);
+  // listings = listings.searchResults.mapResults;
+
+  const newListings = [];
+  
+  listings.forEach(listing => {
+    
+    if (listing.hdpData) {
+      if (listing.beds.toString() === userInfo.numOfBeds) {
+        newListings.push(listing);
+      }
+    }
+  });
+  return newListings;
+}
 
 const getListing = async function(){
+  // // url = `https://cors-anywhere.herokuapp.com/https://www.zillow.com/search/GetSearchPageState.htm?searchQueryState=%7B%22pagination%22%3A%7B%7D%2C%22usersSearchTerm%22%3A%22toronto%22%2C%22mapBounds%22%3A%7B%22west%22%3A-79.77669883105466%2C%22east%22%3A-78.97607016894528%2C%22south%22%3A43.69071018618643%2C%22north%22%3A43.725455049837734%7D%2C%22regionSelection%22%3A%5B%7B%22regionId%22%3A792680%2C%22regionType%22%3A6%7D%5D%2C%22isMapVisible%22%3Atrue%2C%22filterState%22%3A%7B%22isForSaleByAgent%22%3A%7B%22value%22%3Afalse%7D%2C%22isForSaleByOwner%22%3A%7B%22value%22%3Afalse%7D%2C%22isNewConstruction%22%3A%7B%22value%22%3Afalse%7D%2C%22isForSaleForeclosure%22%3A%7B%22value%22%3Afalse%7D%2C%22isComingSoon%22%3A%7B%22value%22%3Afalse%7D%2C%22isAuction%22%3A%7B%22value%22%3Afalse%7D%2C%22isPreMarketForeclosure%22%3A%7B%22value%22%3Afalse%7D%2C%22isPreMarketPreForeclosure%22%3A%7B%22value%22%3Afalse%7D%2C%22isMakeMeMove%22%3A%7B%22value%22%3Afalse%7D%2C%22isForRent%22%3A%7B%22value%22%3Atrue%7D%7D%2C%22isListVisible%22%3Atrue%7D&includeMap=true&includeList=false`
   
-  let d = new Date(); // this will be the time stamp of how fresh the data is:
-  let day;
-  let url; 
-  let data;
-  url = `https://cors-anywhere.herokuapp.com/https://www.zillow.com/search/GetSearchPageState.htm?searchQueryState=%7B%22pagination%22%3A%7B%7D%2C%22usersSearchTerm%22%3A%22toronto%22%2C%22mapBounds%22%3A%7B%22west%22%3A-79.77669883105466%2C%22east%22%3A-78.97607016894528%2C%22south%22%3A43.69071018618643%2C%22north%22%3A43.725455049837734%7D%2C%22regionSelection%22%3A%5B%7B%22regionId%22%3A792680%2C%22regionType%22%3A6%7D%5D%2C%22isMapVisible%22%3Atrue%2C%22filterState%22%3A%7B%22isForSaleByAgent%22%3A%7B%22value%22%3Afalse%7D%2C%22isForSaleByOwner%22%3A%7B%22value%22%3Afalse%7D%2C%22isNewConstruction%22%3A%7B%22value%22%3Afalse%7D%2C%22isForSaleForeclosure%22%3A%7B%22value%22%3Afalse%7D%2C%22isComingSoon%22%3A%7B%22value%22%3Afalse%7D%2C%22isAuction%22%3A%7B%22value%22%3Afalse%7D%2C%22isPreMarketForeclosure%22%3A%7B%22value%22%3Afalse%7D%2C%22isPreMarketPreForeclosure%22%3A%7B%22value%22%3Afalse%7D%2C%22isMakeMeMove%22%3A%7B%22value%22%3Afalse%7D%2C%22isForRent%22%3A%7B%22value%22%3Atrue%7D%7D%2C%22isListVisible%22%3Atrue%7D&includeMap=true&includeList=false`
-  data = await fetch(url)
-  data = await data.json();
-  day = d.getDate()+'/'+d.getMonth()+'/'+d.getFullYear()
-  localStorage.houseListing = JSON.stringify({ date: day, data: data})
-  
+  // let url; 
+  // let data;
+  // url = './js/data.json'
+  // data = await fetch(url)
+  // data = await data.json();
+  // const houseListing = listingsInfo; 
+  localStorage.setItem('houseListing', JSON.stringify(listingsInfo.searchResults.mapResults));
+  // console.log(listingsInfo.searchResults.mapResults.length);
 }
+
+
+
 
 
 const main = async function () {
@@ -200,5 +311,6 @@ const main = async function () {
   });
 
 };
+
 
 main();

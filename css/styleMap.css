@@ -1,5 +1,8 @@
-html, body, #map {
+#map {
     height: 100%;
-    margin: 0px;
-    padding: 0px;
+}
+html,#mainContainer , body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
 }
