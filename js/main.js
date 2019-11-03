@@ -154,6 +154,8 @@ const handleFourthQuestion = (e) => {
   document.getElementById("mainContainer").innerHTML = q4;
 
 
+  narrowByUnit();
+
   if (userInfo.mostImportant === 'price') {
     narrowByPrice();
   }
@@ -225,9 +227,9 @@ const displayFirstQuestion = () => {
         </div>
         <div class="card-action center-align">
           <a href="#" class='btn waves-effect waves-light z-depth-2' onclick="handleFirstQuestion(this)" data-value="studio">Studio</a>
-          <a href="#" class='btn waves-effect waves-light z-depth-2' onclick="handleFirstQuestion(this)" data-value="oneBed">1 Bed</a>
-          <a href="#" class='btn waves-effect waves-light z-depth-2' onclick="handleFirstQuestion(this)" data-value="twoBed">2 Beds</a>
-          <a href="#" class='btn waves-effect waves-light z-depth-2' onclick="handleFirstQuestion(this)" data-value="threePlus"">3+ Beds</a>
+          <a href="#" class='btn waves-effect waves-light z-depth-2' onclick="handleFirstQuestion(this)" data-value="1">1 Bed</a>
+          <a href="#" class='btn waves-effect waves-light z-depth-2' onclick="handleFirstQuestion(this)" data-value="2">2 Beds</a>
+          <a href="#" class='btn waves-effect waves-light z-depth-2' onclick="handleFirstQuestion(this)" data-value="3">3+ Beds</a>
         </div>
       </div>
     </div>
@@ -257,7 +259,24 @@ const narrowByPrice = () => {
     }
   })
 
+}
 
+const narrowByUnit = () => {
+  
+  let listings = JSON.parse(localStorage.getItem('houseListing'));
+  listings = listings.data.searchResults.mapResults;
+
+  const newListings = [];
+  
+  listings.forEach(listing => {
+    
+    if (listing.hdpData) {
+      if (listing.beds.toString() === userInfo.numOfBeds) {
+        newListings.push(listing);
+      }
+    }
+  });
+  return newListings;
 }
 
 const getListing = async function(){
