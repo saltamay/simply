@@ -232,5 +232,3 @@ const subwayData = [
           latLong: { latitude: 43.73211815, longitude: -79.26569845 }
         }
       ]
-      
-      '.'
