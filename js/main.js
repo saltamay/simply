@@ -5,6 +5,7 @@ var markerCluster;
 var infoWindow;
 let locations;
 let match;
+let index = 0;
 
 
 function initMap() {
@@ -351,8 +352,9 @@ const displayresults = function () {
   scriptElem.type="text/javascript";
   document.getElementsByTagName('head')[0].appendChild(scriptElem); 
 
-  let index = 0;
+  
   match = locations[index];
+  console.log(match);
 
   let price = match.price.toString();
   price = '$' + price.charAt(0) + ',' + price.slice(1);
@@ -387,9 +389,18 @@ const displayresults = function () {
           </div>
         </div>
         <div class="card-action card-buttons center-align">
-          <a class="btn-floating btn-large waves-effect waves-light pink lighten-2"><i class="material-icons">thumb_down</i></a>
-          <a class="btn-floating btn-large waves-effect waves-light red lighten-1 favorite"><i class="large material-icons">favorite</i></a>
-          <a class="btn-floating btn-large waves-effect waves-light blue lighten-2"><i class="material-icons">thumb_up</i></a>
+          <a 
+            class="btn-floating btn-large waves-effect waves-light pink lighten-2" 
+            data-value="dislike"
+            onClick="handleButtonClick(this)"><i class="material-icons">thumb_down</i></a>
+          <a 
+            class="btn-floating btn-large waves-effect waves-light red lighten-1 favorite" 
+            data-value="bestMatch"
+            onClick="handleButtonClick(this)"><i class="large material-icons">favorite</i></a>
+          <a 
+            class="btn-floating btn-large waves-effect waves-light blue lighten-2" 
+            data-value="like"
+            onClick="handleButtonClick(this)"><i class="material-icons">thumb_up</i></a>
         </div>
       </div>
     </div>
@@ -399,31 +410,39 @@ const displayresults = function () {
   document.getElementById("mainContainer").innerHTML = results;
 
   index++;
+  console.log(index);
 }
 
-
-const convertLatLong = function(){
-  var lists = JSON.parse(localStorage.houseListing);
-  lists = lists.map((list,i)=>{
-    return {lat:list.latLong.latitude,lng:list.latLong.longitude}
-  })
-  locations = lists
-
- 
+const handleButtonClick = (e) => {
+  switch (e.dataset.value) {
+    case 'dislike':
+      displayresults();
+      break;
+    case 'bestMatch':
+      displayresults();
+      break;
+    case 'like':
+      displayresults();
+      break;
+  }
 }
+// const convertLatLong = function(){
+//   var lists = JSON.parse(localStorage.houseListing);
+//   lists = lists.map((list,i)=>{
+//     return {lat:list.latLong.latitude,lng:list.latLong.longitude}
+//   })
+//   locations = lists
+// }
 
 
 const saveToLocalStorage = () => {
-
   localStorage.setItem('userInfo', JSON.stringify(userInfo));
-
 }
 
 
 const displayFirstQuestion = () => {
 
   var q1 = `
-
 
   <header >
   <nav class="red darken-2 center-align " role="navigation" style='height:5em'>
@@ -435,8 +454,6 @@ const displayFirstQuestion = () => {
       </div>
   </nav>
 </header>
-  
-  
   
   <div class="container" id='q1' style="margin-top:100px" >
 <div class="row " >
@@ -459,7 +476,6 @@ const displayFirstQuestion = () => {
   </div>
 </div>
 
-
 <footer class="page-footer"  style='margin-top:100px; width:100vw; position:absolute; bottom:0px; '>
 <div class="container center-align">
     <div class="col s12">
@@ -475,12 +491,8 @@ const displayFirstQuestion = () => {
       </div>
     </div>
 </footer>
-
-
 `
-
   document.getElementById("mainContainer").innerHTML = q1;
-
 
 };
 
