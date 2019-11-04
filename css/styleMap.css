@@ -1,6 +1,9 @@
-#map {
+
+#map,
+#results {
     height: 100%;
 }
+
 html, body ,#mainContainer{
     height: 100%;
     margin: 0;
