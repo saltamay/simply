@@ -10,7 +10,7 @@ function initMap() {
   let uoft = { lat: 43.66219, lng: -79.3942}
   map = new google.maps.Map(document.getElementById('map'), {
     center: uoft, 
-    zoom: 15,
+    zoom: 12,
     styles: [
       {elementType: 'geometry', stylers: [{color: '#242f3e'}]},
       {elementType: 'labels.text.stroke', stylers: [{color: '#242f3e'}]},
@@ -276,8 +276,13 @@ const handleFourthQuestion = (e) => {
 
   saveToLocalStorage();
   
-  const q4 = `<div id="map"></div>`
-  document.getElementById("mainContainer").innerHTML = q4;
+  const results = 
+  `<div id="results" class="row">
+    <div id="listingInfo" class="col s12 m4"><h4>Listing info goes here!</div>
+    <div id="map" class="col s12 m8"></div>
+  </div>  
+  `
+  document.getElementById("mainContainer").innerHTML = results;
 
   let listings = [];
 
