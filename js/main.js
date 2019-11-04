@@ -3,13 +3,13 @@ var map;
 var markers;
 var markerCluster;
 var infoWindow;
-var locations;
+let locations;
 
 
 function initMap() {
-  let toronto = {lat: 43.713116, lng: -79.3832}
+  let uoft = { lat: 43.66219, lng: -79.3942}
   map = new google.maps.Map(document.getElementById('map'), {
-    center: toronto, 
+    center: uoft, 
     zoom: 15,
     styles: [
       {elementType: 'geometry', stylers: [{color: '#242f3e'}]},
@@ -93,23 +93,43 @@ function initMap() {
     ]
   });
 
+  const infoWindow = new google.maps.InfoWindow;
 
   markers = locations.map(function(location,i){
-    let lat = location.lat;
-    let lng = location.lng;
-    return new google.maps.Marker({
+    
+    let lat = location.latLong.latitude;
+    let lng = location.latLong.longitude;
+    
+    const infoWindowContent = document.createElement('div');
+    infoWindowContent.classList.add('card');
+
+    infoWindowContent.innerHTML = 
+    `
+    <div class="card-image">
+      <img src="${location.imgSrc}">
+    </div>
+    <div class="card-content">
+      <span class="card-title">${location.hdpData.homeInfo.streetAddress}, ${location.hdpData.homeInfo.zipcode}</span>
+      <p>Price: $${location.price}</p>
+    </div>
+    `
+    const marker = new google.maps.Marker({
+      map: map,
       position: { lat , lng },
+      
     });
+    marker.addListener('click', function () {
+      infoWindow.setContent(infoWindowContent);
+      infoWindow.open(map, marker);
+    });
+    return marker; 
   });
 
-  markerCluster = new MarkerClusterer(map, markers,
-    {imagePath: 'https://github.com/googlemaps/v3-utility-library/blob/master/markerclusterer/images/m1.png?raw=true'}
-    );
+  // markerCluster = new MarkerClusterer(map, markers,
+  //   {imagePath: 'https://github.com/googlemaps/v3-utility-library/blob/master/markerclusterer/images/m1.png?raw=true'}
+  //   );
 
   console.log(markerCluster)
-
-
-
 }
 
 
@@ -265,14 +285,14 @@ const handleFourthQuestion = (e) => {
 
   if (userInfo.mostImportant === 'price') {
     
-    return narrowByPrice(listings).sort((a, b) => {
+    locations = narrowByPrice(listings).sort((a, b) => {
       return b.price - a.price;
     })
   } 
   
   if (userInfo.mostImportant === 'transportation') {
 
-    return narrowByWalkingDistance(listings).sort((a, b) => {
+    locations = narrowByWalkingDistance(listings).sort((a, b) => {
       return a.distance - b.distance;
     });
   }
@@ -280,22 +300,20 @@ const handleFourthQuestion = (e) => {
   if (userInfo.mostImportant === 'both') {
     // const newListing = [];
 
-    console.log(narrowByWalkingDistance(listings).filter(listing => {
+    locations = narrowByWalkingDistance(listings).filter(listing => {
 
-      if (listing.listing.price <= parseInt(userInfo.price)) {
+      if (listing.price <= parseInt(userInfo.price)) {
         return listing;
       }
-    }))
-    
+    }) 
   }
-  
-  displayresults()
 
+  displayresults();
 }
 
 
 const displayresults = function () {
-  convertLatLong()
+  // convertLatLong()
   var apikey = 'AIzaSyAVRcQaZXipelHJy9FFybcFT9VJDmbyBvA';
   scriptElem = document.createElement('script');
   scriptElem.async = true;
@@ -486,15 +504,14 @@ const narrowByWalkingDistance = (listings) => {
 
       if (d <= 750) {
         // console.log('distance from unit at', listings[unit].latLong, 'to', subwayData[station].name, 'station is', Math.floor(d), 'meters')
+        listings[unit].subway = subwayData[station];
+        listings[unit].distance = Math.floor(d);
         newListings.push({
-          listing: listings[unit],
-          subway: subwayData[station],
-          distance: Math.floor(d)
+          ...listings[unit]
         });
       }
     }
   }
-  console.log(newListings);
   return newListings;
 }
 
