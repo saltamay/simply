@@ -1,7 +1,7 @@
 #map {
     height: 100%;
 }
-html,#mainContainer , body {
+html, body ,#mainContainer{
     height: 100%;
     margin: 0;
     padding: 0;

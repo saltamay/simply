@@ -10,7 +10,87 @@ function initMap() {
   let toronto = {lat: 43.713116, lng: -79.3832}
   map = new google.maps.Map(document.getElementById('map'), {
     center: toronto, 
-    zoom: 15
+    zoom: 15,
+    styles: [
+      {elementType: 'geometry', stylers: [{color: '#242f3e'}]},
+      {elementType: 'labels.text.stroke', stylers: [{color: '#242f3e'}]},
+      {elementType: 'labels.text.fill', stylers: [{color: '#746855'}]},
+      {
+        featureType: 'administrative.locality',
+        elementType: 'labels.text.fill',
+        stylers: [{color: '#d59563'}]
+      },
+      {
+        featureType: 'poi',
+        elementType: 'labels.text.fill',
+        stylers: [{color: '#d59563'}]
+      },
+      {
+        featureType: 'poi.park',
+        elementType: 'geometry',
+        stylers: [{color: '#263c3f'}]
+      },
+      {
+        featureType: 'poi.park',
+        elementType: 'labels.text.fill',
+        stylers: [{color: '#6b9a76'}]
+      },
+      {
+        featureType: 'road',
+        elementType: 'geometry',
+        stylers: [{color: '#38414e'}]
+      },
+      {
+        featureType: 'road',
+        elementType: 'geometry.stroke',
+        stylers: [{color: '#212a37'}]
+      },
+      {
+        featureType: 'road',
+        elementType: 'labels.text.fill',
+        stylers: [{color: '#9ca5b3'}]
+      },
+      {
+        featureType: 'road.highway',
+        elementType: 'geometry',
+        stylers: [{color: '#746855'}]
+      },
+      {
+        featureType: 'road.highway',
+        elementType: 'geometry.stroke',
+        stylers: [{color: '#1f2835'}]
+      },
+      {
+        featureType: 'road.highway',
+        elementType: 'labels.text.fill',
+        stylers: [{color: '#f3d19c'}]
+      },
+      {
+        featureType: 'transit',
+        elementType: 'geometry',
+        stylers: [{color: '#2f3948'}]
+      },
+      {
+        featureType: 'transit.station',
+        elementType: 'labels.text.fill',
+        stylers: [{color: '#d59563'}]
+      },
+      {
+        featureType: 'water',
+        elementType: 'geometry',
+        stylers: [{color: '#17263c'}]
+      },
+      {
+        featureType: 'water',
+        elementType: 'labels.text.fill',
+        stylers: [{color: '#515c6d'}]
+      },
+      {
+        featureType: 'water',
+        elementType: 'labels.text.stroke',
+        stylers: [{color: '#17263c'}]
+      }
+    ]
   });
 
 
@@ -36,11 +116,23 @@ function initMap() {
 
 const handleFirstQuestion = (e) => {
   userInfo.numOfBeds = e.dataset.value;
+  document.getElementById("mainContainer").innerHTML = `  
 
-  document.getElementById("mainContainer").innerHTML = `  <div class="container" id='q2'>
+  <header >
+  <nav class="red darken-2 center-align " role="navigation" style='height:5em'>
+      <div class="nav-wrapper center-align">
+          <a id="logo-container" href="#" class="brand-logo center-align" style="padding-top: 10px; filter:invert(1)">
+              <img src="./img/isolated-monochrome-white.svg" alt="" srcset="" style="width: 30px;">
+              <img class='hide-on-small-only' src="./img/default-monochrome-white.svg" alt="" srcset="" style="width: 96px; margin-left: 5px;">
+          </a>
+      </div>
+  </nav>
+</header>
+  
+  <div class="container" id='q2' style="margin-top:100px" >
 <div class="row" >
     <div class="col s12 m10 offset-m1 l10 offset-l1 xl12 ">
-      <div class="card red darken-4 z-depth-4">
+      <div class="card red darken-3 z-depth-4">
         <div id='sliderCard' class="card-content white-text  ">
           <span class="card-title ">
             <i class='material-icons left green-text ' >monetization_on</i>
@@ -63,7 +155,7 @@ const handleFirstQuestion = (e) => {
               </form>
         </div>
         <div class='container center-align'>
-          <a href="#" class='btn' onclick="handleSecondQuestion()">Submit 
+          <a style="margin-bottom:30px" href="#" class='btn' onclick="handleSecondQuestion()">Submit 
             <i class='material-icons right'>send</i>
           </a>
         </div>
@@ -71,75 +163,165 @@ const handleFirstQuestion = (e) => {
       </div>
     </div>
   </div>
-</div>`;
+</div>
+
+<footer class="page-footer"  style='margin-top:100px; width:100vw; position:absolute; bottom:0px; '>
+<div class="container center-align">
+    <div class="col s12">
+        <p class="grey-text text-lighten-4">We are a team of college students working on this project like
+                it's our full time job.
+        </p>
+    </div>
+</div>
+
+    <div class="footer-copyright">
+      <div class="container center-align">
+      &copy; 2019 Simply 
+      </div>
+    </div>
+</footer>
+
+`;
   document.onload = document.getElementById('sliderInput').addEventListener('input',function(e){
     document.getElementById('rentValue').innerText =e.target.value
   })
 };
 
+// const handleSecondQuestion = () => {
+
+//   userInfo.price = document.getElementById("sliderInput").value;
+
+//   const q3 = `  
+
+
+
+//   <header>
+//   <nav class="white center-align " role="navigation" style='height:5em'>
+//       <div class="nav-wrapper center-align">
+//           <a id="logo-container" href="#" class="brand-logo center-align" style="padding-top: 10px;">
+//               <img src="./img/isolated-monochrome-white.svg" alt="" srcset="" style="width: 30px;">
+//               <img class='hide-on-small-only' src="./img/default-monochrome-white.svg" alt="" srcset="" style="width: 96px; margin-left: 5px;">
+//           </a>
+//           <a href="#" data-target="nav-mobile" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+//       </div>
+//   </nav>
+// </header>
+  
+  
+  
+//   <div class="container " id='q3' style="margin-top:100px" >
+// <div class="row" >
+//     <div class="col s12 m10 offset-m1 l10 offset-l1 xl12 ">
+//       <div class="card red darken-4 z-depth-4">
+//         <div id='sliderCard' class="card-content white-text  ">
+//           <span class="card-title ">
+//             <i class='material-icons left green-text ' >my_location</i>
+//             Question 3 :
+//           </span>
+//           <p>WHERE ARE YOU LOOKING TO MOVE?</p>
+//         </div>
+//         <div class="container">
+//             <div class="row">
+//                 <form class="col s12 center-align">
+//                   <div class="row">
+//                     <div class="input-field col s12 center-align ">
+//                       <i class="material-icons prefix green-text">location_on</i>
+//                       <input id="location" type="text" class="validate white-text">
+//                       <label  class='green-text' for="location">Example: Toronto</label>
+//                     </div>
+//                   </div>
+//                   <a href="#" class='btn' onclick="handleThirdQuestion()">Submit 
+//                       <i class='material-icons right'>send</i>
+//                   </a>
+//                 </form>
+//               </div>
+//         </div>
+//     </div>
+//   </div>
+// </div>
+// </div>
+
+
+// <footer class="page-footer"  style='margin-top:100px; width:100vw; position:absolute; bottom:0px; '>
+// <div class="container center-align">
+//     <div class="col s12">
+//         <p class="grey-text text-lighten-4">We are a team of college students working on this project like
+//                 it's our full time job.
+//         </p>
+//     </div>
+// </div>
+
+//     <div class="footer-copyright">
+//       <div class="container center-align">
+//       &copy; 2019 Simply 
+//       </div>
+//     </div>
+// </footer>
+
+// `
+//   document.getElementById("mainContainer").innerHTML = q3;
+
+
+// };
+
 const handleSecondQuestion = () => {
+  // userInfo.location = document.getElementById("location").value;
+    userInfo.price = document.getElementById("sliderInput").value;
 
-  userInfo.price = document.getElementById("sliderInput").value;
-
-  const q3 = `  <div class="container " id='q3'>
-<div class="row" >
-    <div class="col s12 m10 offset-m1 l10 offset-l1 xl12 ">
-      <div class="card red darken-4 z-depth-4">
-        <div id='sliderCard' class="card-content white-text  ">
-          <span class="card-title ">
-            <i class='material-icons left green-text ' >my_location</i>
-            Question 3 :
-          </span>
-          <p>WHERE ARE YOU LOOKING TO MOVE?</p>
-        </div>
-        <div class="container">
-            <div class="row">
-                <form class="col s12 center-align">
-                  <div class="row">
-                    <div class="input-field col s12 center-align ">
-                      <i class="material-icons prefix green-text">location_on</i>
-                      <input id="location" type="text" class="validate white-text">
-                      <label  class='green-text' for="location">Example: Toronto</label>
-                    </div>
-                  </div>
-                  <a href="#" class='btn' onclick="handleThirdQuestion()">Submit 
-                      <i class='material-icons right'>send</i>
-                  </a>
-                </form>
-              </div>
-        </div>
-    </div>
-  </div>
-</div>
-</div>`
-  document.getElementById("mainContainer").innerHTML = q3;
-
-
-};
-
-const handleThirdQuestion = () => {
-  userInfo.location = document.getElementById("location").value;
-
-  const q4 = `<div class="container " id='q4'>
+  const q4 = `
+  
+  <header >
+  <nav class="red darken-2 center-align " role="navigation" style='height:5em'>
+      <div class="nav-wrapper center-align">
+          <a id="logo-container" href="#" class="brand-logo center-align" style="padding-top: 10px; filter:invert(1)">
+              <img src="./img/isolated-monochrome-white.svg" alt="" srcset="" style="width: 30px;">
+              <img class='hide-on-small-only' src="./img/default-monochrome-white.svg" alt="" srcset="" style="width: 96px; margin-left: 5px;">
+          </a>
+      </div>
+  </nav>
+</header>
+  
+  
+  
+  <div class="container " id='q4' style="margin-top:100px" >
 <div class="row " >
     <div class="col s12 m10 offset-m1 l10 offset-l1 xl12 ">
-      <div class="card red darken-4 z-depth-4">
+      <div class="card red darken-3 z-depth-4">
         <div class="card-content white-text ">
           <span class="card-title ">
             <i class='material-icons left green-text ' >show_chart</i>
-            Question 4 :
+            Question 3 :
           </span>
           <p>I CARE THE MOST ABOUT:</p>
         </div>
         <div class="card-action center-align">
-          <a href="#" class='btn waves-effect waves-light z-depth-2' onclick="handleFourthQuestion(this)" data-value="transportaion">1. convenience of transportation</a>
-          <a href="#" class='btn waves-effect waves-light z-depth-2' onclick="handleFourthQuestion(this)" data-value="price">2. The cheapest price</a>
-          <a href="#" class='btn waves-effect waves-light z-depth-2' onclick="handleFourthQuestion(this)" data-value="location">3. Location</a>
+          <a href="#" class='btn waves-effect waves-light z-depth-2' onclick="handleFourthQuestion(this)" data-value="transportaion">Easy Transportation</a>
+          <p class='white-text' >OR</p>
+          <a href="#" class='btn waves-effect waves-light z-depth-2' onclick="handleFourthQuestion(this)" data-value="price">Cheapest Price</a>
+          <p class='white-text' >OR</p>
+          <a href="#" class='btn waves-effect waves-light z-depth-2 pulse' onclick="handleFourthQuestion(this)" data-value="both">BOTH</a>
         </div>
       </div>
     </div>
   </div>
-</div>`
+</div>
+
+<footer class="page-footer"  style='margin-top:100px; width:100vw; position:absolute; bottom:0px; '>
+<div class="container center-align">
+    <div class="col s12">
+        <p class="grey-text text-lighten-4">We are a team of college students working on this project like
+                it's our full time job.
+        </p>
+    </div>
+</div>
+
+    <div class="footer-copyright">
+      <div class="container center-align">
+      &copy; 2019 Simply 
+      </div>
+    </div>
+</footer>
+`
 
   document.getElementById("mainContainer").innerHTML = q4;
 };
@@ -200,10 +382,26 @@ const saveToLocalStorage = () => {
 
 const displayFirstQuestion = () => {
 
-  var q1 = `<div class="container" id='q1'>
+  var q1 = `
+
+
+  <header >
+  <nav class="red darken-2 center-align " role="navigation" style='height:5em'>
+      <div class="nav-wrapper center-align">
+          <a id="logo-container" href="#" class="brand-logo center-align" style="padding-top: 10px; filter:invert(1)">
+              <img src="./img/isolated-monochrome-white.svg" alt="" srcset="" style="width: 30px;">
+              <img class='hide-on-small-only' src="./img/default-monochrome-white.svg" alt="" srcset="" style="width: 96px; margin-left: 5px;">
+          </a>
+      </div>
+  </nav>
+</header>
+  
+  
+  
+  <div class="container" id='q1' style="margin-top:100px" >
 <div class="row " >
     <div class="col s12 m10 offset-m1 l10 offset-l1 xl12 ">
-      <div class="card red darken-4 z-depth-4">
+      <div class="card red darken-3 z-depth-4">
         <div class="card-content white-text ">
           <span class="card-title ">
             <i class='material-icons left green-text ' >info_outline</i>
@@ -212,7 +410,6 @@ const displayFirstQuestion = () => {
           <p>HOW MANY BEDROOMS DO YOU WANT?</p>
         </div>
         <div class="card-action center-align">
-          <a href="#" class='btn waves-effect waves-light z-depth-2' onclick="handleFirstQuestion(this)" data-value="studio">Studio</a>
           <a href="#" class='btn waves-effect waves-light z-depth-2' onclick="handleFirstQuestion(this)" data-value="1">1 Bed</a>
           <a href="#" class='btn waves-effect waves-light z-depth-2' onclick="handleFirstQuestion(this)" data-value="2">2 Beds</a>
           <a href="#" class='btn waves-effect waves-light z-depth-2' onclick="handleFirstQuestion(this)" data-value="3">3+ Beds</a>
@@ -220,7 +417,27 @@ const displayFirstQuestion = () => {
       </div>
     </div>
   </div>
-</div>`
+</div>
+
+
+<footer class="page-footer"  style='margin-top:100px; width:100vw; position:absolute; bottom:0px; '>
+<div class="container center-align">
+    <div class="col s12">
+        <p class="grey-text text-lighten-4">We are a team of college students working on this project like
+                it's our full time job.
+        </p>
+    </div>
+</div>
+
+    <div class="footer-copyright">
+      <div class="container center-align">
+      &copy; 2019 Simply 
+      </div>
+    </div>
+</footer>
+
+
+`
 
   document.getElementById("mainContainer").innerHTML = q1;
 
@@ -247,8 +464,6 @@ const narrowByPrice = (listings) => {
 const narrowByUnit = () => {
   
   let listings = JSON.parse(localStorage.getItem('houseListing'));
-  // console.log(listings);
-  // listings = listings.searchResults.mapResults;
 
   const newListings = [];
   
@@ -305,16 +520,7 @@ const narrowByWalkingDistance = (listings) => {
 }
 
 const getListing = async function(){
-  // // url = `https://cors-anywhere.herokuapp.com/https://www.zillow.com/search/GetSearchPageState.htm?searchQueryState=%7B%22pagination%22%3A%7B%7D%2C%22usersSearchTerm%22%3A%22toronto%22%2C%22mapBounds%22%3A%7B%22west%22%3A-79.77669883105466%2C%22east%22%3A-78.97607016894528%2C%22south%22%3A43.69071018618643%2C%22north%22%3A43.725455049837734%7D%2C%22regionSelection%22%3A%5B%7B%22regionId%22%3A792680%2C%22regionType%22%3A6%7D%5D%2C%22isMapVisible%22%3Atrue%2C%22filterState%22%3A%7B%22isForSaleByAgent%22%3A%7B%22value%22%3Afalse%7D%2C%22isForSaleByOwner%22%3A%7B%22value%22%3Afalse%7D%2C%22isNewConstruction%22%3A%7B%22value%22%3Afalse%7D%2C%22isForSaleForeclosure%22%3A%7B%22value%22%3Afalse%7D%2C%22isComingSoon%22%3A%7B%22value%22%3Afalse%7D%2C%22isAuction%22%3A%7B%22value%22%3Afalse%7D%2C%22isPreMarketForeclosure%22%3A%7B%22value%22%3Afalse%7D%2C%22isPreMarketPreForeclosure%22%3A%7B%22value%22%3Afalse%7D%2C%22isMakeMeMove%22%3A%7B%22value%22%3Afalse%7D%2C%22isForRent%22%3A%7B%22value%22%3Atrue%7D%7D%2C%22isListVisible%22%3Atrue%7D&includeMap=true&includeList=false`
-  
-  // let url; 
-  // let data;
-  // url = './js/data.json'
-  // data = await fetch(url)
-  // data = await data.json();
-  // const houseListing = listingsInfo; 
   localStorage.setItem('houseListing', JSON.stringify(listingsInfo.searchResults.mapResults));
-  // console.log(listingsInfo.searchResults.mapResults.length);
 }
 
 
