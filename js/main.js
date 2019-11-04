@@ -278,7 +278,42 @@ const handleFourthQuestion = (e) => {
   
   const results = 
   `<div id="results" class="row">
-    <div id="listingInfo" class="col s12 m4"><h4>Listing info goes here!</div>
+    <div id="listingInfo" class="col s12 m4">
+      <div class="card">
+        <div class="listing-address">
+          <h5 class="">972 Eglinton Ave <span class="listing-price right">$2,000</span></h5>
+        </div>
+        <div class="card-image">
+          <img src="https://photos.zillowstatic.com/p_e/ISbdw2xzw5agh71000000000.jpg">      
+        </div>
+        <div class="card-content">
+          <div>
+            <div class="left card-visuals">
+              <i class="material-icons">hotel</i>
+              <span class="listing-bedrooms">2</span>
+            </div>
+            <div class="left card-visuals">
+              <i class="material-icons">hot_tub</i>
+              <span class="listing-bathrooms">2</span>
+            </div>
+            <div class="left card-visuals"> 
+              <i class="material-icons">directions_car</i>
+              <span class="listing-car">1</span>
+            </div>
+          </div>
+          <div class="listing-details">
+            <p class="clearfix"><i class="material-icons">home</i>Best Match</p>
+            <p><i class="material-icons">location_on</i>Downtown, Toronto</p>
+            <p><i class="material-icons">directions_subway</i>Distance</p>
+          </div>
+        </div>
+        <div class="card-action card-buttons center-align">
+          <a class="btn-floating btn-large waves-effect waves-light pink lighten-2"><i class="material-icons">thumb_down</i></a>
+          <a class="btn-floating btn-large waves-effect waves-light red lighten-1 favorite"><i class="large material-icons">favorite</i></a>
+          <a class="btn-floating btn-large waves-effect waves-light blue lighten-2"><i class="material-icons">thumb_up</i></a>
+        </div>
+      </div>
+    </div>
     <div id="map" class="col s12 m8"></div>
   </div>  
   `
