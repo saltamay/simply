@@ -1,0 +1,19 @@
+
+  .card:hover .activator{
+    
+    width: 500px;
+  }
+
+  .card:hover span.card-title.activator.grey-text.text-darken-4{
+    
+    
+    
+    text-align: center;
+    width: 100%;
+  }
+  
+
+  span{
+
+    text-align: center;
+  }
