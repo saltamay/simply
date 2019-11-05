@@ -247,10 +247,32 @@ const displayresults = function () {
   price = '$' + price.charAt(0) + ',' + price.slice(1);
   // const zipcode = match.hdpData.homeInfo.zipcode.slice(0, 3);
   const zipcode = "M5R";
-  
-  // Display best match
-  const results =
-    `<div id="results" class="row">
+
+  const waypoint0 = '43.66219,-79.3942';
+  const waypoint1 = match.latLong.latitude + ',' + match.latLong.longitude;
+
+  let travelTime;
+
+  $.ajax({
+    url: 'https://route.api.here.com/routing/7.2/calculateroute.json',
+    type: 'GET',
+    dataType: 'jsonp',
+    jsonp: 'jsoncallback',
+    data: {
+      waypoint0: waypoint0,
+      waypoint1: waypoint1,
+      mode: 'fastest;publicTransport',
+      app_id: 'JAsUvJIQP95l3YaTmtT9',
+      app_code: 'm7Ujzi9liyMLwQ27-0IE1Q'
+    },
+  }).then(data => {
+    travelTime = data.response.route[0].summary.travelTime;
+    console.log(travelTime);
+    
+  }).then(data => {
+    // Display best match
+    const results =
+      `<div id="results" class="row">
     <div id="listingInfo" class="col s12 m3">
       <div class="card">
         <div class="listing-address">
@@ -277,7 +299,8 @@ const displayresults = function () {
           <div class="listing-details">
             <p class="clearfix"><i class="material-icons">home</i>Best ${userInfo.mostImportant}</p>
             <p><i class="material-icons">location_on</i>${neighbourhoods[zipcode].name}, Toronto</p>
-            <p><i class="material-icons">directions_subway</i>${match.distance}meters</p>
+            <p><i class="material-icons">directions_subway</i>${match.distance}meters to closest subway</p>
+            <p><i class="material-icons">school</i>${Math.floor(travelTime / 60)} mins by public transit</p>
           </div>
         </div>
         <div class="card-action card-buttons center-align">
@@ -290,14 +313,13 @@ const displayresults = function () {
     <div id="map" class="col s12 m9"></div>
   </div>  
   `
-  document.getElementById("mainContainer").innerHTML = results;
-
-  initMap();
-
-  // Add event listeners
-  document.getElementById('dislike').addEventListener('click', (e) => {handleButtonClick(e);});
-  document.getElementById('bestMatch').addEventListener('click', (e) => {handleButtonClick(e);});
-  document.getElementById('like').addEventListener('click', (e) => {handleButtonClick(e);});
+    document.getElementById("mainContainer").innerHTML = results;
+    // Add event listeners
+    document.getElementById('dislike').addEventListener('click', (e) => { handleButtonClick(e); });
+    document.getElementById('bestMatch').addEventListener('click', (e) => { handleButtonClick(e); });
+    document.getElementById('like').addEventListener('click', (e) => { handleButtonClick(e); });
+    initMap();
+  })
 
   index++;
   
