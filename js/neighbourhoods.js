@@ -95,7 +95,22 @@ const neighbourhoods = [
     facts: "In recent years, it has seen an explosion of new condominium loft and row house development. The area is located close to the Fashion and Entertainment districts. The area is also part of the Trinity—Spadina riding which covers a much larger section just west of the downtown core.",
     isConvenient: true
   },
-
+  {
+    name: "Niagara",
+    id: 82,
+    zipcode: "M5V",
+    walkScore: 84,
+    facts: "In recent years, it has seen an explosion of new condominium loft and row house development. The area is located close to the Fashion and Entertainment districts. The area is also part of the Trinity—Spadina riding which covers a much larger section just west of the downtown core.",
+    isConvenient: false
+  },
+  {
+    name: "South Parkdale",
+    id: 85,
+    zipcode: "M6K",
+    walkScore: 83,
+    facts: "Lively Parkdale is a multicultural residential neighbourhood with wide, pedestrian friendly sidewalks, colourful street art and a mix of Victorian mansions and apartment buildings. The area features an international mix of restaurants, from cheap eats to refined bistros. According to the City of Toronto the majority(45% per cent) of Parkdale residents are single.Parkdale is one of the city’s most diverse neighbourhoods with large Tibetan, Tagalog, Polish and Hungarian populations.",
+    isConvenient: false
+  },
   {
     name: "South Parkdale",
     id: 87,
@@ -165,7 +180,7 @@ const neighbourhoods = [
 
   {
     name: "Yorkdale-Glen Park",
-    id:31,
+    //id:0,
     zipcode: "M6B",
     walkScore: 84,
     facts: "This neighbourhood is also home to Lawrence Heights, a community undergoing revitalization, as well as several popular amenities including the Yorkdale and Lawrence Square shopping centres Local parks include Caledonia Park, Wenderly Park, Glen Long Park, Joyce Park, Ranee Park and Yorkdale Park. Dante Alighieri Academy is also situated in Yorkdale-Glen Park as well as Beth Torah Congregation",
@@ -174,18 +189,25 @@ const neighbourhoods = [
   
   {
     name: "Englemount-Lawrence",
-    id:32,
+    //id:0,
     zipcode: "M6B",
     walkScore: 62,
     facts: "The Englemount-Lawrence neighbourhood, with a population of 22,100, according to the 2011 Statistics Canada data, is bounded by Hwy. 401 to the north, Allen Road to the west, Briar Hill Avenue to the south, and Bathurst Street to the east",
     isConvenient: false
   },
 
-
+  {
+    name: "Yonge-Eglinton",
+    //id:0,
+    zipcode: "M5P",
+    walkScore: 96,
+    facts: "Yonge and Eglinton boasts family-centred neighbourhoods alongside a growing condo culture. Most people have to go kilometres to a movies theatre, but Yonge-and-Eg residents can walk to two multiplexes. Comedy lovers can hit Absolute Comedy at Yuk Yuk’s former location, and the retail and dining options have multiplied",
+    isConvenient: true
+  },
 
   {
     name: "Yonge-Eglinton",
-    id:100,
+    //id:0,
     zipcode: "M4P",
     walkScore: 98,
     facts: "Yonge and Eglinton boasts family-centred neighbourhoods alongside a growing condo culture. Most people have to go kilometres to a movies theatre, but Yonge-and-Eg residents can walk to two multiplexes. Comedy lovers can hit Absolute Comedy at Yuk Yuk’s former location, and the retail and dining options have multiplied",
@@ -194,7 +216,7 @@ const neighbourhoods = [
 
   {
     name: "Forest Hill North",
-    id:102,
+    //id:0,
     zipcode: "M6C",
     walkScore: 89,
     facts: "Considered one of the city’s most prestigious areas, Forest Hill is a stunning community characterized by winding roads, sloping hills, and various little parks that give the neighbourhood its distinctive charm.",
@@ -202,8 +224,8 @@ const neighbourhoods = [
   },
 
   {
-    name: "Oakwood-Vaughan", // oakwood village & oakwood- vaughan is same thing
-    id:107,
+    name: "Oakwood-Vaughan",
+    //id:0,
     zipcode: "M6C",
     walkScore: 40,
     facts: "Oakwood-Vaughan encompasses a large area with schools catering to the Catholic, French Catholic and non-denominational communities. The Oakwood Village Library and Arts Centre offers a place for local artists to showcase community-based works. The Fairbank Memorial Park is Oakwood-Vaughan’s largest with basketball and bocce courts and an outdoor pool.",
@@ -212,7 +234,7 @@ const neighbourhoods = [
 
   {
     name: "Rosedale-Moore Park",
-    id:98,
+    //id:0,
     zipcode: "M4T",
     walkScore: 90,
     facts: "The toney neighbourhood of Rosedale-Moore Park is a quiet residential area located between the northern boundary of Moore Avenue, the southern boundary of Bloor Street, the western boundary of Yonge Street and the Moore Park Ravine and Bayview Avenue along its eastern edge. It has plenty of greenery, with parts of the Moore Park Ravine, Chorley Park, the Beltline Trail, David A. Balfour Park, Beaumont Park and other public green spaces.",
@@ -221,121 +243,13 @@ const neighbourhoods = [
 
   {
     name: "Mount Pleasant West",
-    id:104,
+    //id:0,
     zipcode: "M4S",
     walkScore: 98,
     facts: "The neighbourhood of Mount Pleasant West is bounded by Yonge Street to the west, Mount Pleasant Road to the East, Keewatin Avenue to the north and the Kay Gardner Beltline to the south. Largely residential in nature, it includes several highrise apartment and condo complexes, mostly located north of Eglinton Avenue, along with a large number of single-family residences to the south.",
     isConvenient: true
   },
 
-  {
-    name: "Forest Hill South",
-    id:104,
-    zipcode: "M5P",
-    walkScore: 87,
-    facts: "Forest Hill South is a toney neighbourhood denoted largely by large single-family homes. Bounded mainly by Eglinton Avenue to the north, Lonsdale Road to the south, Bathurst Street to the west and Elmsthorpe Avenue, Oriole Parkway and Avenue Road to the east, the area features a portion of the Kay Gardner Beltline Trail to its northeast and a portion of Cedarvale Park to its southwest.",
-    isConvenient: false
-  },
-  
-  {
-    name: "Yonge-St.Clair",
-    id:93,
-    zipcode: "M4V",
-    walkScore: 93,
-    facts: "Yonge-St. Clair is a largely quiet, residential neighbourhood just south of Toronto’s official midtown. Bounded roughly by the CP rail tracks to the south, the Kay Gardner Beltline Trail to the north, Avenue Road and Oriole Parkway to the west and Yonge Street to the east, the area is dominated by a mix of single family and multi-unit dwellings. ",
-    isConvenient: true
-  },
 
-  {
-    name: "High Park-Swansea",
-    id:87,
-    zipcode: "M6P",
-    walkScore: 88,
-    facts: "High Park—Swansea was a provincial riding in the west-end of the city of Toronto, Ontario, Canada. It was represented in the Legislative Assembly of Ontario from 1975 to 1999. It was created during the 1975 riding redistribution, taking much of its territory from the defunct High Park riding",
-    isConvenient: false
-  },
-
-  {
-    name: "Playter Estates-Danforth",
-    id:67,
-    zipcode: "M4M",
-    walkScore: 96,
-    facts: "It is an area in the east end of Toronto, Ontario, Canada bounded by Jackman Avenue to the east, the Don River Valley to the west, Danforth Avenue in the south, and Fulton Avenue in the north. ",
-    isConvenient: true
-  },
-
-  {
-    name: "Broadview North",
-    id:57,
-    zipcode: "M4K",
-    walkScore: 91,
-    facts: "Broadview North is an urban East York neighbourhood, full of younger, generally well-educated city singles",
-    isConvenient: true
-  },
-
-
-  {
-    name: "Kingsway South",
-    id:15,
-    zipcode: "M8X",
-    walkScore: 67,
-    facts: "is an affluent residential neighbourhood in Toronto, Ontario, Canada. It is located in the former City of Etobicoke, an area that became the west end of Toronto upon amalgamation in 1998. It is bounded by Bloor Street to the south, Dundas Street to the north, the Mimico Creek to the west and the Humber River to the east.",
-    isConvenient: false
-  },
-
-  
-  {
-    name: "Stonegate-Queensway",
-    id:16,
-    zipcode: "M8X",
-    walkScore: 62,
-    facts: "Stonegate-Queensway is an amalgam of a couple smaller neighbourhoods: Queensway (to the south) and Sunnylea/Stonegate, which sits atop the former. The neighbourhood is bounded by Bloor Street on the north, the Gardiner Expressway on the south, and is bookended by Islington and the Humber River. Although Stonegate-Queensway has outgrown its market garden community roots, it maintains its country charm thanks to its lush green spaces, many of which are untamed. This area is a mix of industrial, residential and retail strips, and so there’s really something for everyone from any walk of life. Shopaholics might prefer perusing the consignment goods at a Kingsway shop, while bargain hunters will opt for Costco.",
-    isConvenient: false
-  },
-  
-  {
-    name: "Junction Area",
-    id:90,
-    zipcode: "M6P",
-    walkScore: 83,
-    facts: "It's called the Junction because it's, well, a junction, originally of two First Nations trails and then of the Canadian Pacific Railway's Ontario and Quebec lines with the Toronto, Grey and Bruce and Credit Valley lines. ",
-    isConvenient: false
-  },
-
-  {
-    name: "Wychwood",
-    id:94,
-    zipcode: "M6G",
-    walkScore: 88,
-    facts: "Toronto’s Wychwood neighbourhood is a largely quiet neighbourhood with a mix of low and mid-rise residential dwellings. It is bounded roughly by Oakwood Avenue and Dovercourt Road to the west, Bathurst Street to the east, just north of St. Clair Avenue west to the north and the CN rail tracks to the south.",
-    isConvenient: false
-  },
-  
-  {
-    name: "Corsa Italia-Davenport",
-    id:92,
-    zipcode: "M6E",
-    walkScore:97,
-    facts: "Corso Italia is a neighbourhood situated on St. Clair Avenue West, between Westmount Avenue (just east of Dufferin Street) and Lansdowne Avenue. It is contained within the larger city-recognized neighbourhood of Corso Italia-Davenport. The neighbourhood includes numerous cafés, clothing shops, shoe stores, restaurants, food markets, as well as several gelaterias and bakeries.",
-    isConvenient: true
-  },
-  
-  {
-    name: "Weston-Pellam Park",
-    id:91,
-    zipcode: "M6N",
-    walkScore: 82,
-    facts: "Home ownership in Weston - Pellam Park is high, with a split of 61% owners to 39% renters among those living in the area. Activities common to the area include reading, gardening, swimming.",
-    isConvenient: false
-  }
-
-  {
-    name: "Lawrence Park North",
-    id:105,
-    zipcode: "M4N",
-    walkScore: 92,
-    facts: "Lawrence Park North is a largely quiet, residential neighbourhood in central Toronto. Its boundaries do not follow traditional roadways, with the western boundary roughly midway between Avenue and Elm roads, its northern boundaries roughly along Roe and McNairn avenues and Glen Echo Road, its eastern boundary midway between Yonge Street and Bayview Avenue and its southern boundary along Lawrence Avenue.",
-    isConvenient: true
-  }  
 
 ]
