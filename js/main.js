@@ -164,7 +164,7 @@ const handleSecondQuestion = () => {
           <p class='white-text' >OR</p>
           <a href="#" class='btn waves-effect waves-light z-depth-2' onclick="handleFourthQuestion(this)" data-value="price">Cheapest Price</a>
           <p class='white-text' >OR</p>
-          <a href="#" class='btn waves-effect waves-light z-depth-2 pulse' onclick="handleFourthQuestion(this)" data-value="both">BOTH</a>
+          <a href="#" class='btn waves-effect waves-light z-depth-2 pulse' onclick="handleFourthQuestion(this)" data-value="location">BOTH</a>
         </div>
       </div>
     </div>
@@ -205,29 +205,48 @@ const handleFourthQuestion = (e) => {
   if (userInfo.mostImportant === 'price') {
     
     locations = narrowByPrice(listings).sort((a, b) => {
-      return b.price - a.price;
+      return a.price - b.price;
     })
+
+    displayresults();
   } 
   
   if (userInfo.mostImportant === 'transportation') {
 
-    locations = narrowByWalkingDistance(listings).sort((a, b) => {
-      return a.distance - b.distance;
-    });
-  }
+    // locations = narrowByPrice(locations).sort((a, b) => {
+    //   return b.price - a.price;
+    // })
 
-  if (userInfo.mostImportant === 'both') {
-    // const newListing = [];
-
+    // locations = narrowByWalkingDistance(listings).sort((a, b) => {
+    //   return a.distance - b.distance;
+    // });
     locations = narrowByWalkingDistance(listings).filter(listing => {
 
       if (listing.price <= parseInt(userInfo.price)) {
         return listing;
       }
     }) 
+
+    displayresults();
   }
 
-  displayresults();
+  if (userInfo.mostImportant === 'location') {
+
+    // locations = narrowByWalkingDistance(listings).filter(listing => {
+
+    //   if (listing.price <= parseInt(userInfo.price)) {
+    //     return listing;
+    //   }
+    // }) 
+
+    locations = narrowByDistanceToUofT(listings);
+
+    setTimeout(() => {
+      displayresults();
+    }, 1000);
+  }
+
+  // displayresults();
 }
 
 const displayresults = function () {
@@ -271,48 +290,78 @@ const displayresults = function () {
     
   }).then(data => {
     // Display best match
-    const results =
+    let results =
       `<div id="results" class="row">
-    <div id="listingInfo" class="col s12 m3">
-      <div class="card">
-        <div class="listing-address">
-          <h6 class="">${match.hdpData.homeInfo.streetAddress} <span class="listing-price right">${price}</span></h6>
-        </div>
-        <div class="card-image">
-          <img src="${match.imgSrc}">      
-        </div>
-        <div class="card-content">
-          <div>
-            <div class="left card-visuals">
-              <i class="material-icons">hotel</i>
-              <span class="listing-bedrooms">${match.beds}</span>
+        <div id="listingInfo" class="col s12 m3">
+          <div class="card">
+            <div class="listing-address">
+              <h6 class="">${match.hdpData.homeInfo.streetAddress} <span class="listing-price right">${price}</span></h6>
             </div>
-            <div class="left card-visuals">
-              <i class="material-icons">hot_tub</i>
-              <span class="listing-bathrooms">${match.baths}</span>
+            <div class="card-image">
+              <img src="${match.imgSrc}">      
             </div>
-            <div class="left card-visuals">
-              <i class="material-icons">directions_walk</i>
-              <span class="listing-convenience">${neighbourhoods[zipcode].walkScore}</span>
+            <div class="card-content">
+              <div>
+                <div class="left card-visuals">
+                  <i class="material-icons">hotel</i>
+                  <span class="listing-bedrooms">${match.beds}</span>
+                </div>
+                <div class="left card-visuals">
+                  <i class="material-icons">hot_tub</i>
+                  <span class="listing-bathrooms">${match.baths}</span>
+                </div>
+                <div class="left card-visuals">
+                  <i class="material-icons">directions_walk</i>
+                  <span class="listing-convenience">WalkScore: ${neighbourhoods[zipcode].walkScore}</span>
+                </div>
             </div>
-          </div>
+      `;
+      switch (userInfo.mostImportant) {    
+        case 'price':
+          results += `
           <div class="listing-details">
-            <p class="clearfix"><i class="material-icons">home</i>Best ${userInfo.mostImportant}</p>
+            <p class="clearfix"><i class="material-icons">home</i>Best for ${userInfo.mostImportant}</p>
             <p><i class="material-icons">location_on</i>${neighbourhoods[zipcode].name}, Toronto</p>
-            <p><i class="material-icons">directions_subway</i>${match.distance}meters to closest subway</p>
-            <p><i class="material-icons">school</i>${Math.floor(travelTime / 60)} mins by public transit</p>
+            <p><i class="material-icons">location_city</i>${neighbourhoods[zipcode].facts}</p>
           </div>
-        </div>
-        <div class="card-action card-buttons center-align">
-          <a class="btn-floating btn-large waves-effect waves-light pink lighten-2"><i id="dislike" class="material-icons">thumb_down</i></a>
-          <a class="btn-floating btn-large waves-effect waves-light red lighten-1 favorite"><i id="bestMatch" class="material-icons">favorite</i></a>
-          <a class="btn-floating btn-large waves-effect waves-light blue lighten-2"><i id="like" class="material-icons">thumb_up</i></a>
-        </div>
+          `
+          break;
+        case 'transportation':
+          results += `
+          <div class="listing-details">
+            <p class="clearfix"><i class="material-icons">home</i>Best for public ${userInfo.mostImportant}</p>
+            <p><i class="material-icons">location_on</i>${neighbourhoods[zipcode].name}, Toronto</p>
+            <p><i class="material-icons">directions_subway</i>${match.distance} meters to closest subway location</p>
+            <p><i class="material-icons">school</i>${Math.floor(travelTime / 60)} mins by public transit</p>
+            <p><i class="material-icons">location_city</i>${neighbourhoods[zipcode].facts}</p>
+          </div>
+          `
+          break;
+        case 'location':
+          results += `
+          <div class="listing-details">
+            <p class="clearfix"><i class="material-icons">home</i>Best for ${userInfo.mostImportant}</p>
+            <p><i class="material-icons">location_on</i>${neighbourhoods[zipcode].name}, Toronto</p>
+            <p><i class="material-icons">school</i>${Math.floor(travelTime / 60)} mins by public transit</p>
+            <p><i class="material-icons">location_city</i>${neighbourhoods[zipcode].facts}</p>
+          </div>
+          `
+          break;
+      }
+    
+    results += `
       </div>
-    </div>
-    <div id="map" class="col s12 m9"></div>
-  </div>  
-  `
+      <div class="card-action card-buttons center-align">
+        <a class="btn-floating btn-large waves-effect waves-light pink lighten-2"><i id="dislike" class="material-icons">thumb_down</i></a>
+        <a class="btn-floating btn-large waves-effect waves-light red lighten-1 favorite"><i id="bestMatch" class="material-icons">favorite</i></a>
+        <a class="btn-floating btn-large waves-effect waves-light blue lighten-2"><i id="like" class="material-icons">thumb_up</i></a>
+      </div>
+      </div>
+      </div>
+      <div id="map" class="col s12 m9"></div>
+    </div> 
+    `
+
     document.getElementById("mainContainer").innerHTML = results;
     // Add event listeners
     document.getElementById('dislike').addEventListener('click', (e) => { handleButtonClick(e); });
@@ -518,6 +567,45 @@ const narrowByWalkingDistance = (listings) => {
     }
   }
   return newListings;
+}
+
+const narrowByDistanceToUofT = (listings) => {
+
+  const newListings = [];
+
+  const waypoint0 = '43.66219,-79.3942';
+
+  for(let i = 0; i < listings.length; i++) {
+
+    const waypoint1 = listings[i].latLong.latitude + ',' + listings[i].latLong.longitude;
+
+    $.ajax({
+          url: 'https://route.api.here.com/routing/7.2/calculateroute.json',
+          type: 'GET',
+          dataType: 'jsonp',
+          jsonp: 'jsoncallback',
+          data: {
+            waypoint0: waypoint0,
+            waypoint1: waypoint1,
+            mode: 'fastest;publicTransport',
+            app_id: 'JAsUvJIQP95l3YaTmtT9',
+            app_code: 'm7Ujzi9liyMLwQ27-0IE1Q'
+          },
+        }).then(data => {
+          const travelTime = data.response.route[0].summary.travelTime;
+            if (Math.floor(travelTime / 60) <= 30) {
+              listings[i].travelTime = travelTime
+              newListings.push({
+                ...listings[i]
+              });
+              locations = newListings;
+            }
+        })
+  }
+  // setTimeout(() => {
+  //   locations = newListings;
+  //   displayresults();
+  // }, 2500);
 }
 
 
