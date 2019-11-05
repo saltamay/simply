@@ -104,14 +104,18 @@
   padding-right: 3px;
 }
 
+.listing-address h6 {
+  font-weight: 600;
+}
+
 .listing-price {
-  font-size: 1.75rem;
+  font-size: 1.5rem;
   font-weight: 600;
 }
 
 .listing-bedrooms,
 .listing-bathrooms,
-.listing-car {
+.listing-convenience {
   font-size: 1.25rem;
 }
 

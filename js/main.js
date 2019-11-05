@@ -1,11 +1,12 @@
 let userInfo = {};
-var map;
-var markers;
-var markerCluster;
-var infoWindow;
+let map;
+let marker; 
+// var markerCluster;
+let infoWindow;
 let locations;
 let match;
 let index = 0;
+
 
 
 function initMap() {
@@ -19,120 +20,15 @@ function initMap() {
       lat: lat,
       lng: lng
     }, 
-    zoom: 12,
-    styles: [
-      {elementType: 'geometry', stylers: [{color: '#242f3e'}]},
-      {elementType: 'labels.text.stroke', stylers: [{color: '#242f3e'}]},
-      {elementType: 'labels.text.fill', stylers: [{color: '#746855'}]},
-      {
-        featureType: 'administrative.locality',
-        elementType: 'labels.text.fill',
-        stylers: [{color: '#d59563'}]
-      },
-      {
-        featureType: 'poi',
-        elementType: 'labels.text.fill',
-        stylers: [{color: '#d59563'}]
-      },
-      {
-        featureType: 'poi.park',
-        elementType: 'geometry',
-        stylers: [{color: '#263c3f'}]
-      },
-      {
-        featureType: 'poi.park',
-        elementType: 'labels.text.fill',
-        stylers: [{color: '#6b9a76'}]
-      },
-      {
-        featureType: 'road',
-        elementType: 'geometry',
-        stylers: [{color: '#38414e'}]
-      },
-      {
-        featureType: 'road',
-        elementType: 'geometry.stroke',
-        stylers: [{color: '#212a37'}]
-      },
-      {
-        featureType: 'road',
-        elementType: 'labels.text.fill',
-        stylers: [{color: '#9ca5b3'}]
-      },
-      {
-        featureType: 'road.highway',
-        elementType: 'geometry',
-        stylers: [{color: '#746855'}]
-      },
-      {
-        featureType: 'road.highway',
-        elementType: 'geometry.stroke',
-        stylers: [{color: '#1f2835'}]
-      },
-      {
-        featureType: 'road.highway',
-        elementType: 'labels.text.fill',
-        stylers: [{color: '#f3d19c'}]
-      },
-      {
-        featureType: 'transit',
-        elementType: 'geometry',
-        stylers: [{color: '#2f3948'}]
-      },
-      {
-        featureType: 'transit.station',
-        elementType: 'labels.text.fill',
-        stylers: [{color: '#d59563'}]
-      },
-      {
-        featureType: 'water',
-        elementType: 'geometry',
-        stylers: [{color: '#17263c'}]
-      },
-      {
-        featureType: 'water',
-        elementType: 'labels.text.fill',
-        stylers: [{color: '#515c6d'}]
-      },
-      {
-        featureType: 'water',
-        elementType: 'labels.text.stroke',
-        stylers: [{color: '#17263c'}]
-      }
-    ]
+    zoom: 16,
   });
 
   const infoWindow = new google.maps.InfoWindow;
 
-  // markers = locations.map(function(location,i){
-    
-  //   let lat = location.latLong.latitude;
-  //   let lng = location.latLong.longitude;
-    
-  //   const infoWindowContent = document.createElement('div');
-  //   infoWindowContent.classList.add('card');
-
-  //   infoWindowContent.innerHTML = 
-  //   `
-  //   <div class="card-image">
-  //     <img src="${location.imgSrc}">
-  //   </div>
-  //   <div class="card-content">
-  //     <span class="card-title">${location.hdpData.homeInfo.streetAddress}, ${location.hdpData.homeInfo.zipcode}</span>
-  //     <p>Price: $${location.price}</p>
-  //   </div>
-  //   `
-  //   const marker = new google.maps.Marker({
-  //     map: map,
-  //     position: { lat , lng },
-      
-  //   });
-  //   marker.addListener('click', function () {
-  //     infoWindow.setContent(infoWindowContent);
-  //     infoWindow.open(map, marker);
-  //   });
-  //   return marker; 
-  // });
+  marker = new google.maps.Marker({
+    map: map,
+    position: { lat , lng },
+  });
 
   const infoWindowContent = document.createElement('div');
   infoWindowContent.classList.add('card');
@@ -143,15 +39,10 @@ function initMap() {
       <img src="${match.imgSrc}">
     </div>
     <div class="card-content">
-      <span class="card-title">${match.hdpData.homeInfo.streetAddress}, ${match.hdpData.homeInfo.zipcode}</span>
+      <span class="card-title">${match.hdpData.homeInfo.streetAddress}</span>
       <p>Price: $${match.price}</p>
     </div>
     `
-  const marker = new google.maps.Marker({
-    map: map,
-    position: { lat, lng },
-
-  });
 
   marker.addListener('click', function () {
     infoWindow.setContent(infoWindowContent);
@@ -161,8 +52,6 @@ function initMap() {
   // markerCluster = new MarkerClusterer(map, markers,
   //   {imagePath: 'https://github.com/googlemaps/v3-utility-library/blob/master/markerclusterer/images/m1.png?raw=true'}
   //   );
-
-  // console.log(markerCluster)
 }
 
 
@@ -341,32 +230,31 @@ const handleFourthQuestion = (e) => {
   displayresults();
 }
 
-
 const displayresults = function () {
-  // Init map
-  var apikey = 'AIzaSyAVRcQaZXipelHJy9FFybcFT9VJDmbyBvA';
-  scriptElem = document.createElement('script');
-  scriptElem.async = true;
-  scriptElem.defer = true;
-  scriptElem.src=`https://maps.googleapis.com/maps/api/js?key=${apikey}&callback=initMap`;
-  scriptElem.type="text/javascript";
-  document.getElementsByTagName('head')[0].appendChild(scriptElem); 
-
   
-  match = locations[index];
-  console.log(match);
+  // Init map
+  // const apikey = 'AIzaSyAVRcQaZXipelHJy9FFybcFT9VJDmbyBvA';
+  // scriptElem = document.createElement('script');
+  // scriptElem.async = true;
+  // scriptElem.defer = true;
+  // scriptElem.src = `https://maps.googleapis.com/maps/api/js?key=${apikey}&callback=initMap`;
+  // scriptElem.type = "text/javascript";
+  // document.getElementsByTagName('head')[0].appendChild(scriptElem);
 
+  match = locations[index];
+  
   let price = match.price.toString();
   price = '$' + price.charAt(0) + ',' + price.slice(1);
-  const zipcode = match.hdpData.homeInfo.zipcode.slice(0, 3);
-
+  // const zipcode = match.hdpData.homeInfo.zipcode.slice(0, 3);
+  const zipcode = "M5R";
+  
   // Display best match
   const results =
     `<div id="results" class="row">
-    <div id="listingInfo" class="col s12 m4">
+    <div id="listingInfo" class="col s12 m3">
       <div class="card">
         <div class="listing-address">
-          <h5 class="">${match.hdpData.homeInfo.streetAddress}, ${match.hdpData.homeInfo.zipcode}<span class="listing-price right">${price}</span></h5>
+          <h6 class="">${match.hdpData.homeInfo.streetAddress} <span class="listing-price right">${price}</span></h6>
         </div>
         <div class="card-image">
           <img src="${match.imgSrc}">      
@@ -381,40 +269,43 @@ const displayresults = function () {
               <i class="material-icons">hot_tub</i>
               <span class="listing-bathrooms">${match.baths}</span>
             </div>
+            <div class="left card-visuals">
+              <i class="material-icons">directions_walk</i>
+              <span class="listing-convenience">${neighbourhoods[zipcode].walkScore}</span>
+            </div>
           </div>
           <div class="listing-details">
-            <p class="clearfix"><i class="material-icons">home</i>Best Match</p>
-            <p><i class="material-icons">location_on</i>${neighbourhoods[0][zipcode]}, Toronto</p>
+            <p class="clearfix"><i class="material-icons">home</i>Best ${userInfo.mostImportant}</p>
+            <p><i class="material-icons">location_on</i>${neighbourhoods[zipcode].name}, Toronto</p>
             <p><i class="material-icons">directions_subway</i>${match.distance}meters</p>
           </div>
         </div>
         <div class="card-action card-buttons center-align">
-          <a 
-            class="btn-floating btn-large waves-effect waves-light pink lighten-2" 
-            data-value="dislike"
-            onClick="handleButtonClick(this)"><i class="material-icons">thumb_down</i></a>
-          <a 
-            class="btn-floating btn-large waves-effect waves-light red lighten-1 favorite" 
-            data-value="bestMatch"
-            onClick="handleButtonClick(this)"><i class="large material-icons">favorite</i></a>
-          <a 
-            class="btn-floating btn-large waves-effect waves-light blue lighten-2" 
-            data-value="like"
-            onClick="handleButtonClick(this)"><i class="material-icons">thumb_up</i></a>
+          <a class="btn-floating btn-large waves-effect waves-light pink lighten-2"><i id="dislike" class="material-icons">thumb_down</i></a>
+          <a class="btn-floating btn-large waves-effect waves-light red lighten-1 favorite"><i id="bestMatch" class="material-icons">favorite</i></a>
+          <a class="btn-floating btn-large waves-effect waves-light blue lighten-2"><i id="like" class="material-icons">thumb_up</i></a>
         </div>
       </div>
     </div>
-    <div id="map" class="col s12 m8"></div>
+    <div id="map" class="col s12 m9"></div>
   </div>  
   `
   document.getElementById("mainContainer").innerHTML = results;
 
+  initMap();
+
+  // Add event listeners
+  document.getElementById('dislike').addEventListener('click', (e) => {handleButtonClick(e);});
+  document.getElementById('bestMatch').addEventListener('click', (e) => {handleButtonClick(e);});
+  document.getElementById('like').addEventListener('click', (e) => {handleButtonClick(e);});
+
   index++;
-  console.log(index);
+  
 }
 
 const handleButtonClick = (e) => {
-  switch (e.dataset.value) {
+
+  switch (e.target.id) {
     case 'dislike':
       displayresults();
       break;
@@ -425,7 +316,10 @@ const handleButtonClick = (e) => {
       displayresults();
       break;
   }
+  return false;
 }
+
+
 // const convertLatLong = function(){
 //   var lists = JSON.parse(localStorage.houseListing);
 //   lists = lists.map((list,i)=>{
@@ -433,7 +327,6 @@ const handleButtonClick = (e) => {
 //   })
 //   locations = lists
 // }
-
 
 const saveToLocalStorage = () => {
   localStorage.setItem('userInfo', JSON.stringify(userInfo));
