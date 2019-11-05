@@ -89,6 +89,63 @@
   height: 380px;
 }
 
+.listing-address {
+  color: #333333;
+  padding: 1.5rem;
+}
+
+.card-visuals {
+  padding-right: 1rem;
+}
+
+.card-visuals .material-icons {
+  color: #333333;
+  font-size: 1.25rem;
+  padding-right: 3px;
+}
+
+.listing-price {
+  font-size: 1.75rem;
+  font-weight: 600;
+}
+
+.listing-bedrooms,
+.listing-bathrooms,
+.listing-car {
+  font-size: 1.25rem;
+}
+
+.listing-details {
+  position: relative;
+  margin-top: 3rem;
+}
+
+.card-buttons {
+  margin-top: 3rem;
+  padding: 1.5rem 0;
+}
+
+.card-buttons a {
+  height: 5rem !important;
+  margin: 0 0.5rem;
+  width: 5rem !important;
+}
+
+.card-buttons a i {
+  font-size: 2rem !important;
+  line-height: 5rem !important;
+}
+
+.card-buttons a.favorite {
+  height: 7rem !important;
+  width: 7rem !important;
+} 
+
+.card-buttons a.favorite i {
+  font-size: 3rem !important;
+  line-height: 7rem !important;
+}
+
 /* Custom Stylesheet */
 /**
  * Use this file to override Materialize files so you can update
