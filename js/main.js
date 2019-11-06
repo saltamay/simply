@@ -218,7 +218,7 @@ const handleFourthQuestion = (e) => {
   listings = narrowByUnit();
 
   switch (userInfo.mostImportant) {
-    case price:
+    case 'price':
       locations = narrowByPrice(listings).sort((a, b) => {
         return a.price - b.price;
       })
@@ -277,8 +277,8 @@ const displayresults = function () {
       waypoint0: waypoint0,
       waypoint1: waypoint1,
       mode: 'fastest;publicTransport',
-      app_id: 'JAsUvJIQP95l3YaTmtT9',
-      app_code: 'm7Ujzi9liyMLwQ27-0IE1Q'
+      app_id: 'GQWgle2no4uT3a218ykS',
+      app_code: 'P_GfANgDX0U_yEWB-pbClQ'
     },
   }).then(data => {
     travelTime = data.response.route[0].summary.travelTime;
@@ -543,8 +543,8 @@ const narrowByDistanceToUofT = (listings) => {
             waypoint0: waypoint0,
             waypoint1: waypoint1,
             mode: 'fastest;publicTransport',
-            app_id: 'JAsUvJIQP95l3YaTmtT9',
-            app_code: 'm7Ujzi9liyMLwQ27-0IE1Q'
+            app_id: 'GQWgle2no4uT3a218ykS ',
+            app_code: 'P_GfANgDX0U_yEWB-pbClQ'
           },
         }).then(data => {
           const travelTime = data.response.route[0].summary.travelTime;
