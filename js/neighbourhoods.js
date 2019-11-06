@@ -1,14 +1,14 @@
 const neighbourhoods = 
   {
     "M5R": {
-    "name": "Annex",
+    "name": "The Annex",
     "id": "95",
     "walkScore": "94",
     "facts": "Next to University of Toronto's St. George Campus, The Annex is a lively area that draws students to its casual eateries, indie bookshops, bars and cafes on Bloor Street West. It also has the iconic Lee's Palace rock concert venue, the quirky Hot Docs Ted Rogers Cinema and the Royal Ontario Museum art and natural history museum, one of the largest in North America. Leafy residential streets feature stately homes.",
     "isConvenient": "true"
   },
   "M5S": {
-    "name": "University",
+    "name": "University of Toronto",
     "id": "79",
     "walkScore": "97",
     "facts": "This sprawling university campus is mostly wedged between Bloor, College, University and Spadina.",

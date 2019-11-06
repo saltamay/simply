@@ -8,7 +8,6 @@ let match;
 let index = 0;
 
 
-
 function initMap() {
 
   let lat = match.latLong.latitude;
@@ -130,8 +129,8 @@ const handleFirstQuestion = (e) => {
 
 
 const handleSecondQuestion = () => {
-  // userInfo.location = document.getElementById("location").value;
-    userInfo.price = document.getElementById("sliderInput").value;
+
+  userInfo.price = document.getElementById("sliderInput").value;
 
   const q4 = `
   
@@ -202,51 +201,33 @@ const handleFourthQuestion = (e) => {
 
   listings = narrowByUnit();
 
-  if (userInfo.mostImportant === 'price') {
-    
-    locations = narrowByPrice(listings).sort((a, b) => {
-      return a.price - b.price;
-    })
+  switch (userInfo.mostImportant) {
+    case price:
+      locations = narrowByPrice(listings).sort((a, b) => {
+        return a.price - b.price;
+      })
 
-    displayresults();
-  } 
-  
-  if (userInfo.mostImportant === 'transportation') {
-
-    // locations = narrowByPrice(locations).sort((a, b) => {
-    //   return b.price - a.price;
-    // })
-
-    // locations = narrowByWalkingDistance(listings).sort((a, b) => {
-    //   return a.distance - b.distance;
-    // });
-    locations = narrowByWalkingDistance(listings).filter(listing => {
-
-      if (listing.price <= parseInt(userInfo.price)) {
-        return listing;
-      }
-    }) 
-
-    displayresults();
-  }
-
-  if (userInfo.mostImportant === 'location') {
-
-    // locations = narrowByWalkingDistance(listings).filter(listing => {
-
-    //   if (listing.price <= parseInt(userInfo.price)) {
-    //     return listing;
-    //   }
-    // }) 
-
-    locations = narrowByDistanceToUofT(listings);
-
-    setTimeout(() => {
       displayresults();
-    }, 1000);
+      break;
+    case 'transportation':
+      locations = narrowByWalkingDistance(listings).filter(listing => {
+
+        if (listing.price <= parseInt(userInfo.price)) {
+          return listing;
+        }
+      })
+
+      displayresults();
+      break;
+    case 'location':
+    l ocations = narrowByDistanceToUofT(listings);
+
+      setTimeout(() => {
+        displayresults();
+      }, 1000);
+      break;
   }
 
-  // displayresults();
 }
 
 const displayresults = function () {
@@ -264,7 +245,6 @@ const displayresults = function () {
   
   let price = match.price.toString();
   price = '$' + price.charAt(0) + ',' + price.slice(1);
-  // const zipcode = match.hdpData.homeInfo.zipcode.slice(0, 3);
   const zipcode = "M5R";
 
   const waypoint0 = '43.66219,-79.3942';
@@ -391,14 +371,6 @@ const handleButtonClick = (e) => {
 }
 
 
-// const convertLatLong = function(){
-//   var lists = JSON.parse(localStorage.houseListing);
-//   lists = lists.map((list,i)=>{
-//     return {lat:list.latLong.latitude,lng:list.latLong.longitude}
-//   })
-//   locations = lists
-// }
-
 const saveToLocalStorage = () => {
   localStorage.setItem('userInfo', JSON.stringify(userInfo));
 }
@@ -504,49 +476,6 @@ const narrowByUnit = () => {
 
 const narrowByWalkingDistance = (listings) => {
 
-  // return new Promise((resolve, reject) => {
-  //   const newListings = [];
-
-  //   listings.forEach(listing => {
-
-  //     const waypoint0 = listing.latLong.latitude + ',' + listing.latLong.longitude;
-
-  //     subwayData.forEach(subwayLocation => {
-
-  //       const waypoint1 = subwayLocation.latLong.latitude + ',' + subwayLocation.latLong.longitude;
-
-  //       $.ajax({
-  //         url: 'https://route.api.here.com/routing/7.2/calculateroute.json',
-  //         type: 'GET',
-  //         dataType: 'jsonp',
-  //         jsonp: 'jsoncallback',
-  //         data: {
-  //           waypoint0: waypoint0,
-  //           waypoint1: waypoint1,
-  //           mode: 'fastest;pedestrian',
-  //           app_id: 'JAsUvJIQP95l3YaTmtT9',
-  //           app_code: 'm7Ujzi9liyMLwQ27-0IE1Q'
-  //         },
-  //       }).then(data => {
-  //         const distance = data.response.route[0].summary.distance;
-  //           console.log('call');
-  //           if (distance <= 750) {
-  //             newListings.push({
-  //               listing: listing,
-  //               subway: subwayLocation,
-  //               distance: distance
-  //             });
-  //           }
-  //       })
-  //     })
-  //   });
-  //   // return newListings;
-  //   if(newListings.length === newListings.length) {
-  //     resolve(newListings);
-  //   }else {
-  //     reject('Cannot complete');
-  //   }
-  // })
   const newListings = [];
   const r = 6371e3; // gives d in metres
   for (unit in listings) {
@@ -602,10 +531,7 @@ const narrowByDistanceToUofT = (listings) => {
             }
         })
   }
-  // setTimeout(() => {
-  //   locations = newListings;
-  //   displayresults();
-  // }, 2500);
+  
 }
 
 
