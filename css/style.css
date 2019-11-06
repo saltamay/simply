@@ -266,6 +266,95 @@ nav {
  height:calc(50% - 4px);
 }
 
+
+.card.card-box{
+  border:1px solid #ad6f7a;
+  border-radius:8px;
+  overflow:hidden;
+}
+
+.card.card-box .card-content{
+  padding:40px 24px 16px;
+}
+
+.card.card-box .card-content .card-title{
+  text-align:center;
+}
+
+.card.card-box .card-action{
+  border-top:none;
+  padding:16px 24px 40px;
+}
+
+.card.card-box .btn{
+  margin:10px 40px;
+}
+
+.card.card-box #sliderText{
+  background-color:transparent;
+}
+
+.card-box-imitation{
+  height:170px;
+  margin-top:-85px;
+  position:absolute;
+  left:30px;
+  top:50%;
+  display:-webkit-box;
+  display:-ms-flexbox;
+  display:-webkit-flex;
+  display:-moz-flex;
+  display:-ms-flex;
+  display:-o-flex;
+  display:flex;
+  -webkit-flex-direction:column;
+  -moz-flex-direction:column;
+  -ms-flex-direction:column;
+  -o-flex-direction:column;
+  flex-direction:column;
+  justify-content:space-between;
+  z-index:1;
+}
+
+.card-box-imitation svg{
+  vertical-align:middle;
+  margin-right:4px;
+}
+
+.card-box-imitation-bar{
+  width:2px;
+  background:#e2e2e2;
+  position:absolute;
+  left:-10px;
+  top:18px;
+  bottom:18px;
+}
+
+.card-box-imitation-bar span{
+  width:2px;
+  height:0;
+  background:#26a69a;
+  position:absolute;
+  top:0;
+}
+
+
+.card-box-imitation-bar span:after{
+  content:'';
+  display:block;
+  width:8px;
+  height:8px;
+  border:2px solid #26a69a;
+  border-radius:50%;
+  position:absolute;
+  top:100%;
+  left:-3px;
+}
+
+.card-box-imitation-bar.bar-2 span{
+  height:calc(50% - 4px);
+}
+
 .card-box-imitation-bar.bar-3 span{
- height:calc(100% - 3px);
+  height:calc(100% - 3px);
 }
