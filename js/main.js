@@ -218,7 +218,7 @@ const handleFourthQuestion = (e) => {
   listings = narrowByUnit();
 
   switch (userInfo.mostImportant) {
-    case 'price':
+    case price:
       locations = narrowByPrice(listings).sort((a, b) => {
         return a.price - b.price;
       })
