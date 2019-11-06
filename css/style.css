@@ -266,7 +266,17 @@ nav {
  height:calc(50% - 4px);
 }
 
+<<<<<<< HEAD
+||||||| merged common ancestors
+<<<<<<<<< Temporary merge branch 1
+.card-box-imitation-bar.bar-3 span{
+ height:calc(100% - 3px);
+}
+||||||||| merged common ancestors
+=========
+=======
 
+>>>>>>> acd7ec4af35fc5b4c6c60d0b227954f6d92ca14e
 .card.card-box{
   border:1px solid #ad6f7a;
   border-radius:8px;
@@ -357,4 +367,3 @@ nav {
 
 .card-box-imitation-bar.bar-3 span{
   height:calc(100% - 3px);
-}
