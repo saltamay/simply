@@ -73,23 +73,10 @@ const UICtrl = (() => {
 `
     document.getElementById("mainContainer").innerHTML = q1;
 
-    // Add event listeners to selections
-    document.querySelector('[data-value ~= "1"]').addEventListener('click', (e) => {
-      UICtrl.handleFirstQuestion(e);
-    });
-    document.querySelector('[data-value ~= "2"]').addEventListener('click', (e) => {
-      UICtrl.handleFirstQuestion(e)
-    });
-    document.querySelector('[data-value ~= "3"]').addEventListener('click', (e) => {
-      UICtrl.handleFirstQuestion(e)
-    });
-
   };
 
-  const handleFirstQuestion = (e) => {
-    
-    userInfo.numOfBeds = e.target.dataset.value;
-    
+  const displaySecondQuestion = (e) => {
+        
     document.getElementById("mainContainer").innerHTML = `  
 
     <header >
@@ -161,14 +148,11 @@ const UICtrl = (() => {
       </div>
     </footer>
     `;
-    
-    document.querySelector('.price-submit').addEventListener('click', UICtrl.handleSecondQuestion);
 
+    
   };
 
-  const handleSecondQuestion = () => {
-
-    userInfo.price = document.getElementById("sliderInput").value;
+  const displayThirdQuestion = () => {
 
     const q4 = `
   
@@ -235,56 +219,7 @@ const UICtrl = (() => {
 
     document.getElementById("mainContainer").innerHTML = q4;
 
-    // Add event listeners
-    document.querySelector('[data-value ~= "transportation"]').addEventListener('click', (e) => {
-      UICtrl.handleThirdQuestion(e);
-    });
-    document.querySelector('[data-value ~= "price"]').addEventListener('click', (e) => {
-      UICtrl.handleThirdQuestion(e);
-    });
-    document.querySelector('[data-value ~= "location"]').addEventListener('click', (e) => {
-      UICtrl.handleThirdQuestion(e);
-    });
   };
-
-  const handleThirdQuestion = (e) => {
-
-    userInfo.mostImportant = e.target.dataset.value;
-
-    saveToLocalStorage();
-
-    let listings = [];
-
-    listings = narrowByUnit();
-
-    switch (userInfo.mostImportant) {
-      case 'price':
-        locations = narrowByPrice(listings).sort((a, b) => {
-          return a.price - b.price;
-        })
-
-        UICtrl.displayResults();
-        break;
-      case 'transportation':
-        locations = narrowByWalkingDistance(listings).filter(listing => {
-
-          if (listing.price <= parseInt(userInfo.price)) {
-            return listing;
-          }
-        })
-
-        UICtrl.displayResults();
-        break;
-      case 'location':
-        locations = narrowByDistanceToUofT(listings);
-
-        setTimeout(() => {
-          UICtrl.displayResults();
-        }, 1000);
-        break;
-    }
-
-  }
 
   const displayResults = function () {
 
@@ -391,11 +326,11 @@ const UICtrl = (() => {
 
       document.getElementById("mainContainer").innerHTML = results;
       // Add event listeners
-      document.getElementById('dislike').addEventListener('click', (e) => { handleButtonClick(e); });
-      document.getElementById('bestMatch').addEventListener('click', (e) => { handleButtonClick(e); });
-      document.getElementById('like').addEventListener('click', (e) => { handleButtonClick(e); });
+      document.getElementById('dislike').addEventListener('click', (e) => { AppCtrl.handleButtonClick(e); });
+      document.getElementById('bestMatch').addEventListener('click', (e) => { AppCtrl.handleButtonClick(e); });
+      document.getElementById('like').addEventListener('click', (e) => { AppCtrl.handleButtonClick(e); });
       
-      UICtrl.initMap();
+      initMap();
     })
 
     index++;
@@ -449,138 +384,244 @@ const UICtrl = (() => {
   
   return {
     displayFirstQuestion,
-    handleFirstQuestion,
-    handleSecondQuestion,
-    handleThirdQuestion,
+    displaySecondQuestion,
+    displayThirdQuestion,
     displayResults,
     initMap
   }
 })();
 
-const handleButtonClick = (e) => {
+const AppCtrl = (() => {
 
-  switch (e.target.id) {
-    case 'dislike':
-      displayresults();
-      break;
-    case 'bestMatch':
-      displayresults();
-      break;
-    case 'like':
-      displayresults();
-      break;
+  const init = () => {
+
+    localStorage.clear(); //clears the local storgage
+
+    getListing();
+    
+    document.querySelector('#getStarted').addEventListener('click', (e) => {
+      
+      e.preventDefault();
+      
+      UICtrl.displayFirstQuestion();
+
+      // Add event listeners to UI elements
+      document.querySelector('[data-value ~= "1"]').addEventListener('click', (e) => {
+        handleFirstQuestion(e);
+      });
+      document.querySelector('[data-value ~= "2"]').addEventListener('click', (e) => {
+        handleFirstQuestion(e);
+      });
+      document.querySelector('[data-value ~= "3"]').addEventListener('click', (e) => {
+        handleFirstQuestion(e);
+      });
+
+    });
   }
-  return false;
-}
+
+  const handleFirstQuestion = (e) => {
+
+    userInfo.numOfBeds = e.target.dataset.value;
+
+    UICtrl.displaySecondQuestion();
+
+    document.getElementById('sliderInput').addEventListener('input', function (e) {
+      document.getElementById('rentValue').innerText = e.target.value
+    });
+
+    document.querySelector('.price-submit').addEventListener('click', handleSecondQuestion);
+
+  };
+
+  const handleSecondQuestion = () => {
+
+    userInfo.price = document.getElementById("sliderInput").value;
+
+    UICtrl.displayThirdQuestion();
+
+    // Add event listeners to ui elements
+    document.querySelector('[data-value ~= "transportation"]').addEventListener('click', (e) => {
+      handleThirdQuestion(e);
+    });
+    document.querySelector('[data-value ~= "price"]').addEventListener('click', (e) => {
+      handleThirdQuestion(e);
+    });
+    document.querySelector('[data-value ~= "location"]').addEventListener('click', (e) => {
+      handleThirdQuestion(e);
+    });
+  };
+
+  const handleThirdQuestion = (e) => {
+
+    userInfo.mostImportant = e.target.dataset.value;
+
+    saveToLocalStorage();
+
+    let listings = [];
+
+    listings = narrowByUnit();
+
+    switch (userInfo.mostImportant) {
+      case 'price':
+        locations = narrowByPrice(listings).sort((a, b) => {
+          return a.price - b.price;
+        })
+
+        UICtrl.displayResults();
+        break;
+      case 'transportation':
+        locations = narrowByWalkingDistance(listings).filter(listing => {
+
+          if (listing.price <= parseInt(userInfo.price)) {
+            return listing;
+          }
+        })
+
+        UICtrl.displayResults();
+        break;
+      case 'location':
+        locations = narrowByDistanceToUofT(listings);
+
+        setTimeout(() => {
+          UICtrl.displayResults();
+        }, 1000);
+        break;
+    }
+
+  }
+
+  const narrowByUnit = () => {
+
+    let listings = JSON.parse(localStorage.getItem('houseListing'));
+
+    const newListings = [];
+
+    listings.forEach(listing => {
+
+      if (listing.hdpData) {
+        if (listing.beds.toString() === userInfo.numOfBeds) {
+
+          let price = listing.price.slice(2, 3) + listing.price.slice(4, 7);
+          price = parseInt(price);
+          listing.price = price;
+
+          newListings.push(listing);
+        }
+      }
+    });
+    return newListings;
+  }
+  const narrowByPrice = (listings) => {
+
+    const newListings = [];
+
+    listings.forEach(listing => {
+
+      // let price = listing.price.slice(2, 3) + listing.price.slice(4, 7);
+      // price = parseInt(price);
+
+      if (listing.price <= parseInt(userInfo.price)) {
+        // listing.price = price;
+        newListings.push(listing);
+      }
+    });
+    console.log(newListings);
+    return newListings;
+  }
+
+  const narrowByWalkingDistance = (listings) => {
+
+    const newListings = [];
+    const r = 6371e3; // gives d in metres
+    for (unit in listings) {
+      var φ1 = (listings[unit].latLong.latitude) * Math.PI / 180;
+      for (station in subwayData) {
+        var φ2 = (subwayData[station].latLong.latitude) * Math.PI / 180;
+        var Δλ = ((subwayData[station].latLong.longitude - listings[unit].latLong.longitude)) * Math.PI / 180;
+        var d = Math.acos(Math.sin(φ1) * Math.sin(φ2) + Math.cos(φ1) * Math.cos(φ2) * Math.cos(Δλ)) * r;
+
+        if (d <= 750) {
+          // console.log('distance from unit at', listings[unit].latLong, 'to', subwayData[station].name, 'station is', Math.floor(d), 'meters')
+          listings[unit].subway = subwayData[station];
+          listings[unit].distance = Math.floor(d);
+          newListings.push({
+            ...listings[unit]
+          });
+        }
+      }
+    }
+    return newListings;
+  }
+
+  const narrowByDistanceToUofT = (listings) => {
+
+    const newListings = [];
+
+    const waypoint0 = '43.66219,-79.3942';
+
+    for (let i = 0; i < listings.length; i++) {
+
+      const waypoint1 = listings[i].latLong.latitude + ',' + listings[i].latLong.longitude;
+
+      $.ajax({
+        url: 'https://route.api.here.com/routing/7.2/calculateroute.json',
+        type: 'GET',
+        dataType: 'jsonp',
+        jsonp: 'jsoncallback',
+        data: {
+          waypoint0: waypoint0,
+          waypoint1: waypoint1,
+          mode: 'fastest;publicTransport',
+          app_id: 'GQWgle2no4uT3a218ykS ',
+          app_code: 'P_GfANgDX0U_yEWB-pbClQ'
+        },
+      }).then(data => {
+        const travelTime = data.response.route[0].summary.travelTime;
+        if (Math.floor(travelTime / 60) <= 30) {
+          listings[i].travelTime = travelTime
+          newListings.push({
+            ...listings[i]
+          });
+          locations = newListings;
+        }
+      })
+    }
+
+  }
+
+  const handleButtonClick = (e) => {
+
+    switch (e.target.id) {
+      case 'dislike':
+        UICtrl.displayResults();
+        break;
+      case 'bestMatch':
+        UICtrl.displayResults();
+        break;
+      case 'like':
+        UICtrl.displayResults();
+        break;
+    }
+  }
+
+  return {
+    init,
+    handleFirstQuestion,
+    handleSecondQuestion,
+    handleThirdQuestion,
+    narrowByUnit,
+    narrowByPrice,
+    narrowByWalkingDistance,
+    narrowByDistanceToUofT,
+    handleButtonClick
+  }
+})();
+
+
 
 
 const saveToLocalStorage = () => {
   localStorage.setItem('userInfo', JSON.stringify(userInfo));
-}
-
-
-
-
-const narrowByPrice = (listings) => {
-
-  const newListings = [];
-
-  listings.forEach(listing => {
-    
-    // let price = listing.price.slice(2, 3) + listing.price.slice(4, 7);
-    // price = parseInt(price);
-    
-    if (listing.price <= parseInt(userInfo.price)) {
-      // listing.price = price;
-      newListings.push(listing);
-    }
-  });
-  console.log(newListings);
-  return newListings;
-}
-
-
-const narrowByUnit = () => {
-  
-  let listings = JSON.parse(localStorage.getItem('houseListing'));
-
-  const newListings = [];
-  
-  listings.forEach(listing => {
-    
-    if (listing.hdpData) {
-      if (listing.beds.toString() === userInfo.numOfBeds) {
-        
-        let price = listing.price.slice(2, 3) + listing.price.slice(4, 7);
-        price = parseInt(price);
-        listing.price = price;
-
-        newListings.push(listing);
-      }
-    }
-  });
-  return newListings;
-}
-
-
-const narrowByWalkingDistance = (listings) => {
-
-  const newListings = [];
-  const r = 6371e3; // gives d in metres
-  for (unit in listings) {
-    var φ1 = (listings[unit].latLong.latitude) * Math.PI / 180;
-    for (station in subwayData) {
-      var φ2 = (subwayData[station].latLong.latitude) * Math.PI / 180;
-      var Δλ = ((subwayData[station].latLong.longitude - listings[unit].latLong.longitude)) * Math.PI / 180;
-      var d = Math.acos(Math.sin(φ1) * Math.sin(φ2) + Math.cos(φ1) * Math.cos(φ2) * Math.cos(Δλ)) * r;
-
-      if (d <= 750) {
-        // console.log('distance from unit at', listings[unit].latLong, 'to', subwayData[station].name, 'station is', Math.floor(d), 'meters')
-        listings[unit].subway = subwayData[station];
-        listings[unit].distance = Math.floor(d);
-        newListings.push({
-          ...listings[unit]
-        });
-      }
-    }
-  }
-  return newListings;
-}
-
-const narrowByDistanceToUofT = (listings) => {
-
-  const newListings = [];
-
-  const waypoint0 = '43.66219,-79.3942';
-
-  for(let i = 0; i < listings.length; i++) {
-
-    const waypoint1 = listings[i].latLong.latitude + ',' + listings[i].latLong.longitude;
-
-    $.ajax({
-          url: 'https://route.api.here.com/routing/7.2/calculateroute.json',
-          type: 'GET',
-          dataType: 'jsonp',
-          jsonp: 'jsoncallback',
-          data: {
-            waypoint0: waypoint0,
-            waypoint1: waypoint1,
-            mode: 'fastest;publicTransport',
-            app_id: 'GQWgle2no4uT3a218ykS ',
-            app_code: 'P_GfANgDX0U_yEWB-pbClQ'
-          },
-        }).then(data => {
-          const travelTime = data.response.route[0].summary.travelTime;
-            if (Math.floor(travelTime / 60) <= 30) {
-              listings[i].travelTime = travelTime
-              newListings.push({
-                ...listings[i]
-              });
-              locations = newListings;
-            }
-        })
-  }
-  
 }
 
 
@@ -589,18 +630,4 @@ const getListing = async function(){
 }
 
 
-const main = function (UICtrl) {
-  
-  localStorage.clear(); //clears the local storgage
-
-  getListing()
-
-  document.querySelector('#getStarted').addEventListener('click', (e) => {
-    e.preventDefault();
-    UICtrl.displayFirstQuestion();
-  });
-
-};
-
-
-main(UICtrl);
+AppCtrl.init();
