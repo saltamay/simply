@@ -8,173 +8,264 @@
  */
 
  html {
-   color: #606060;
-   font-family: 'Roboto', sans-serif;
- }
-
- header {
-   height: 6.5vh;
- }
-
- nav {
-   height: 100%;
-   padding: 0 90px 8px 90px;
- }
-
- .signin {
-   border: 1px solid #EF5350;
-   border-radius: 5px;
- }
-
- .signup {
-   border-radius: 5px;
- }
-
- .hero h3 {
-   font-weight: 900;
-   margin-bottom: 36px;
- }
-
- /* .logo-container {
-   padding: 15px 0;
- } */
-
- .section-hero {
-   height: 90vh;
-   padding: 0;
- }
-
-.icon-block {
-  padding: 0 16px;
-}
-.icon-block .material-icons {
-	font-size: inherit;
+  color: #606060;
+  font-family: 'Roboto', sans-serif;
 }
 
-.section-map {
-  height: 92vh;
-  background-image: url('../img/map-colour-800px.png');
-  background-size: cover;
+header {
+  height: 6.5vh;
 }
 
-.section-banner {
-  height: 90vh;
+nav {
+  height: 100%;
+  padding: 0 90px 8px 90px;
 }
 
-.underline {
-  border-bottom: 2px solid rgba(211, 211, 211, 0.5);
-}
-
-.map {
-  padding: 0 !important;
-}
-
-.hero {
-  margin-top: 30%;
-}
-
-.get-started {
-  margin-top: 48px;
-}
-
-.get-started button {
+.signin {
+  border: 1px solid #EF5350;
   border-radius: 5px;
 }
 
+.signup {
+  border-radius: 5px;
+}
+
+.hero h3 {
+  font-weight: 900;
+  margin-bottom: 36px;
+}
+
+/* .logo-container {
+  padding: 15px 0;
+} */
+
+.section-hero {
+  height: 90vh;
+  padding: 0;
+}
+
+.icon-block {
+ padding: 0 16px;
+}
+.icon-block .material-icons {
+ font-size: inherit;
+}
+
+.section-map {
+ height: 92vh;
+ background-image: url('../img/map-colour-800px.png');
+ background-size: cover;
+}
+
+.section-banner {
+ height: 90vh;
+}
+
+.underline {
+ border-bottom: 2px solid rgba(211, 211, 211, 0.5);
+}
+
+.map {
+ padding: 0 !important;
+}
+
+.hero {
+ margin-top: 30%;
+}
+
+.get-started {
+ margin-top: 48px;
+}
+
+.get-started button {
+ border-radius: 5px;
+}
+
 .section-feature {
-  margin: 168px 0;
+ margin: 168px 0;
 }
 
 .section-feature .card {
-  height: 380px;
+ height: 380px;
 }
 
 .listing-address {
-  color: #333333;
-  padding: 1.5rem;
+ color: #333333;
+ padding: 1.5rem;
 }
 
 .card-visuals {
-  padding-right: 1rem;
+ padding-right: 1rem;
 }
 
 .card-visuals .material-icons {
-  color: #333333;
-  font-size: 1.25rem;
-  padding-right: 3px;
+ color: #333333;
+ font-size: 1.25rem;
+ padding-right: 3px;
 }
 
 .listing-address h6 {
-  font-weight: 600;
+ font-weight: 600;
 }
 
 .listing-price {
-  font-size: 1.5rem;
-  font-weight: 600;
+ font-size: 1.5rem;
+ font-weight: 600;
 }
 
 .listing-bedrooms,
 .listing-bathrooms,
 .listing-convenience {
-  font-size: 1.25rem;
+ font-size: 1.25rem;
 }
 
 .listing-details {
-  position: relative;
-  margin-top: 3rem;
+ position: relative;
+ margin-top: 3rem;
 }
 
 .card-buttons {
-  margin-top: 3rem;
-  padding: 1.5rem 0;
+ margin-top: 3rem;
+ padding: 1.5rem 0;
 }
 
 .card-buttons a {
-  height: 5rem !important;
-  margin: 0 0.5rem;
-  width: 5rem !important;
+ height: 5rem !important;
+ margin: 0 0.5rem;
+ width: 5rem !important;
 }
 
 .card-buttons a i {
-  font-size: 2rem !important;
-  line-height: 5rem !important;
+ font-size: 2rem !important;
+ line-height: 5rem !important;
 }
 
 .card-buttons a.favorite {
-  height: 7rem !important;
-  width: 7rem !important;
+ height: 7rem !important;
+ width: 7rem !important;
 } 
 
 .card-buttons a.favorite i {
-  font-size: 3rem !important;
-  line-height: 7rem !important;
+ font-size: 3rem !important;
+ line-height: 7rem !important;
 }
 
 /* Custom Stylesheet */
 /**
- * Use this file to override Materialize files so you can update
- * the core Materialize files in the future
- *
- * Made By MaterializeCSS.com
- */
+* Use this file to override Materialize files so you can update
+* the core Materialize files in the future
+*
+* Made By MaterializeCSS.com
+*/
 
 
 /* this section is for quetion 1 */
- .btn{
-   margin: 10px
- }
+.btn{
+  margin: 10px
+}
 
- /* this section is for Question 2 */
- #sliderCard{
-  padding-bottom: 10px;
- }
- #sliderDisplay{
-   padding-bottom: 22px;
-  padding-top: 10px;
- }
- #sliderText{
-  background: rgb(255, 233, 233);
-  padding: 10px;
-  border-radius: 5px;
- }
+/* this section is for Question 2 */
+#sliderCard{
+ padding-bottom: 10px;
+}
+#sliderDisplay{
+  padding-bottom: 22px;
+ padding-top: 10px;
+}
+#sliderText{
+ background: rgb(255, 233, 233);
+ padding: 10px;
+ border-radius: 5px;
+}
 
+.card.card-box{
+ border:1px solid #ad6f7a;
+ border-radius:8px;
+ overflow:hidden;
+}
+
+.card.card-box .card-content{
+ padding:40px 24px 16px;
+}
+
+.card.card-box .card-content .card-title{
+ text-align:center;
+}
+
+.card.card-box .card-action{
+ border-top:none;
+ padding:16px 24px 40px;
+}
+
+.card.card-box .btn{
+ margin:10px 40px;
+}
+
+.card.card-box #sliderText{
+ background-color:transparent;
+}
+
+.card-box-imitation{
+ height:170px;
+ margin-top:-85px;
+ position:absolute;
+ left:30px;
+ top:50%;
+ display:-webkit-box;
+ display:-ms-flexbox;
+ display:-webkit-flex;
+ display:-moz-flex;
+ display:-ms-flex;
+ display:-o-flex;
+ display:flex;
+ -webkit-flex-direction:column;
+ -moz-flex-direction:column;
+ -ms-flex-direction:column;
+ -o-flex-direction:column;
+ flex-direction:column;
+ justify-content:space-between;
+ z-index:1;
+}
+
+.card-box-imitation svg{
+ vertical-align:middle;
+ margin-right:4px;
+}
+
+.card-box-imitation-bar{
+ width:2px;
+ background:#e2e2e2;
+ position:absolute;
+ left:-10px;
+ top:18px;
+ bottom:18px;
+}
+
+.card-box-imitation-bar span{
+ width:2px;
+ height:0;
+ background:#26a69a;
+ position:absolute;
+ top:0;
+}
+
+
+.card-box-imitation-bar span:after{
+ content:'';
+ display:block;
+ width:8px;
+ height:8px;
+ border:2px solid #26a69a;
+ border-radius:50%;
+ position:absolute;
+ top:100%;
+ left:-3px;
+}
+
+.card-box-imitation-bar.bar-2 span{
+ height:calc(50% - 4px);
+}
+
+.card-box-imitation-bar.bar-3 span{
+ height:calc(100% - 3px);
+}
