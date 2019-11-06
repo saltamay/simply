@@ -1,4 +1,7 @@
-let userInfo = {};
+let userInfo = {
+  bestMatch: [],
+  like: []
+};
 let map;
 let marker; 
 // var markerCluster;
@@ -13,7 +16,6 @@ function initMap() {
   let lat = match.latLong.latitude;
   let lng = match.latLong.longitude;
 
-  // let uoft = { lat: 43.66219, lng: -79.3942}
   map = new google.maps.Map(document.getElementById('map'), {
     center: {
       lat: lat,
@@ -202,7 +204,7 @@ const handleFourthQuestion = (e) => {
   listings = narrowByUnit();
 
   switch (userInfo.mostImportant) {
-    case price:
+    case 'price':
       locations = narrowByPrice(listings).sort((a, b) => {
         return a.price - b.price;
       })
@@ -220,7 +222,7 @@ const handleFourthQuestion = (e) => {
       displayresults();
       break;
     case 'location':
-    l ocations = narrowByDistanceToUofT(listings);
+      locations = narrowByDistanceToUofT(listings);
 
       setTimeout(() => {
         displayresults();
@@ -231,15 +233,6 @@ const handleFourthQuestion = (e) => {
 }
 
 const displayresults = function () {
-  
-  // Init map
-  // const apikey = 'AIzaSyAVRcQaZXipelHJy9FFybcFT9VJDmbyBvA';
-  // scriptElem = document.createElement('script');
-  // scriptElem.async = true;
-  // scriptElem.defer = true;
-  // scriptElem.src = `https://maps.googleapis.com/maps/api/js?key=${apikey}&callback=initMap`;
-  // scriptElem.type = "text/javascript";
-  // document.getElementsByTagName('head')[0].appendChild(scriptElem);
 
   match = locations[index];
   
@@ -361,9 +354,13 @@ const handleButtonClick = (e) => {
       displayresults();
       break;
     case 'bestMatch':
+      userInfo.bestMatch.push(match)
+      saveToLocalStorage();
       displayresults();
       break;
     case 'like':
+      userInfo.like.push(match);
+      saveToLocalStorage();
       displayresults();
       break;
   }
@@ -509,31 +506,29 @@ const narrowByDistanceToUofT = (listings) => {
     const waypoint1 = listings[i].latLong.latitude + ',' + listings[i].latLong.longitude;
 
     $.ajax({
-          url: 'https://route.api.here.com/routing/7.2/calculateroute.json',
-          type: 'GET',
-          dataType: 'jsonp',
-          jsonp: 'jsoncallback',
-          data: {
-            waypoint0: waypoint0,
-            waypoint1: waypoint1,
-            mode: 'fastest;publicTransport',
-            app_id: 'JAsUvJIQP95l3YaTmtT9',
-            app_code: 'm7Ujzi9liyMLwQ27-0IE1Q'
-          },
-        }).then(data => {
-          const travelTime = data.response.route[0].summary.travelTime;
-            if (Math.floor(travelTime / 60) <= 30) {
-              listings[i].travelTime = travelTime
-              newListings.push({
-                ...listings[i]
-              });
-              locations = newListings;
-            }
-        })
-  }
-  
+      url: 'https://route.api.here.com/routing/7.2/calculateroute.json',
+      type: 'GET',
+      dataType: 'jsonp',
+      jsonp: 'jsoncallback',
+      data: {
+        waypoint0: waypoint0,
+        waypoint1: waypoint1,
+        mode: 'fastest;publicTransport',
+        app_id: 'JAsUvJIQP95l3YaTmtT9',
+        app_code: 'm7Ujzi9liyMLwQ27-0IE1Q'
+      },
+    }).then(data => {
+      const travelTime = data.response.route[0].summary.travelTime;
+        if (Math.floor(travelTime / 60) <= 30) {
+          listings[i].travelTime = travelTime
+          newListings.push({
+            ...listings[i]
+          });
+          locations = newListings;
+        }
+    })
+  } 
 }
-
 
 const getListing = async function(){
   localStorage.setItem('houseListing', JSON.stringify(listingsInfo.searchResults.mapResults));
