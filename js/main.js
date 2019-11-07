@@ -1,11 +1,54 @@
-let userInfo = {};
-let map;
-let marker; 
-// var markerCluster;
-let infoWindow;
-let locations;
-let match;
-let index = 0;
+// let userInfo = {};
+// let map;
+// let marker; 
+// // var markerCluster;
+// let infoWindow;
+// let locations;
+// let match;
+// let index = 0;
+
+const StateCtrl = (() => {
+
+  const state = {
+    userInfo: {},
+    listings: listings.searchResults.mapResults,
+    map: null,
+    marker: null,
+    markerCluster: null,
+    infoWindow: null,
+    searchResults: [],
+    match: {},
+    index: 0
+  }
+
+  const saveToLocalStorage = () => {
+    localStorage.setItem('userInfo', JSON.stringify(userInfo));
+  }
+
+  const getListing = async function () {
+    localStorage.setItem('houseListing', JSON.stringify(listingsInfo.searchResults.mapResults));
+  }
+
+  return {
+    logState: () => console.log(state),
+    getState: () => state,
+    getUserInfo: () => state.userInfo,
+    getListings: () => state.listings,
+    addUserInfo: (userInfo) => state.userInfo = userInfo,
+    setSearchResults: (searchResults) => { 
+      state.searchResults = searchResults;
+      return searchResults;
+    },
+    getSearchResults: () => state.searchResults,
+    setMatch: (match) => state.match = match,
+    getMatch: () => state.match,
+    getIndex: () => state.index,
+    setIndex: (index) => state.index = index,
+    getMap: () => state.map,
+    saveToLocalStorage,
+    getListing,
+  }
+})();
 
 const UICtrl = (() => {
 
@@ -223,7 +266,11 @@ const UICtrl = (() => {
 
   const displayResults = function () {
 
-    match = locations[index];
+    const searchResults = StateCtrl.getSearchResults();
+    let index = StateCtrl.getIndex();
+    const userInfo = StateCtrl.getUserInfo();
+
+    let match = searchResults[index];
 
     let price = match.price.toString();
     price = '$' + price.charAt(0) + ',' + price.slice(1);
@@ -248,6 +295,7 @@ const UICtrl = (() => {
       },
     }).then(data => {
       travelTime = data.response.route[0].summary.travelTime;
+      match.travelTime = travelTime;
       console.log(travelTime);
 
     }).then(data => {
@@ -333,16 +381,19 @@ const UICtrl = (() => {
       initMap();
     })
 
-    index++;
-
+    StateCtrl.setMatch(match);
+    StateCtrl.setIndex(index++);
   }
   
   function initMap() {
 
+    const match = StateCtrl.getMatch();
+    let map = StateCtrl.getMap();
+
     let lat = match.latLong.latitude;
     let lng = match.latLong.longitude;
 
-    // let uoft = { lat: 43.66219, lng: -79.3942}
+
     map = new google.maps.Map(document.getElementById('map'), {
       center: {
         lat: lat,
@@ -397,7 +448,7 @@ const AppCtrl = (() => {
 
     localStorage.clear(); //clears the local storgage
 
-    getListing();
+    // getListing();
     
     document.querySelector('#getStarted').addEventListener('click', (e) => {
       
@@ -421,7 +472,7 @@ const AppCtrl = (() => {
 
   const handleFirstQuestion = (e) => {
 
-    userInfo.numOfBeds = e.target.dataset.value;
+    StateCtrl.getUserInfo().numOfBeds = e.target.dataset.value;
 
     UICtrl.displaySecondQuestion();
 
@@ -435,7 +486,7 @@ const AppCtrl = (() => {
 
   const handleSecondQuestion = () => {
 
-    userInfo.price = document.getElementById("sliderInput").value;
+    StateCtrl.getUserInfo().price = document.getElementById("sliderInput").value;
 
     UICtrl.displayThirdQuestion();
 
@@ -453,35 +504,35 @@ const AppCtrl = (() => {
 
   const handleThirdQuestion = (e) => {
 
-    userInfo.mostImportant = e.target.dataset.value;
+    StateCtrl.getUserInfo().mostImportant = e.target.dataset.value;
 
-    saveToLocalStorage();
+    // saveToLocalStorage();
 
-    let listings = [];
+    const listings = StateCtrl.getListings();
 
-    listings = narrowByUnit();
+    let searchResults = StateCtrl.setSearchResults(narrowByUnitNum(listings));
 
-    switch (userInfo.mostImportant) {
+    switch (StateCtrl.getUserInfo().mostImportant) {
       case 'price':
-        locations = narrowByPrice(listings).sort((a, b) => {
+        searchResults = narrowByPrice(searchResults).sort((a, b) => {
           return a.price - b.price;
         })
-
+        StateCtrl.setSearchResults(searchResults);
         UICtrl.displayResults();
         break;
       case 'transportation':
-        locations = narrowByWalkingDistance(listings).filter(listing => {
+        searchResults = narrowByWalkingDistance(searchResults).filter(listing => {
 
-          if (listing.price <= parseInt(userInfo.price)) {
+          if (listing.price <= parseInt(StateCtrl.getUserInfo().price)) {
             return listing;
           }
         })
-
+        StateCtrl.setSearchResults(searchResults);
         UICtrl.displayResults();
         break;
       case 'location':
-        locations = narrowByDistanceToUofT(listings);
-
+        searchResults = narrowByDistanceToUofT(searchResults);
+        StateCtrl.setSearchResults(searchResults);
         setTimeout(() => {
           UICtrl.displayResults();
         }, 1000);
@@ -490,16 +541,15 @@ const AppCtrl = (() => {
 
   }
 
-  const narrowByUnit = () => {
-
-    let listings = JSON.parse(localStorage.getItem('houseListing'));
+  const narrowByUnitNum = (listings) => {
+    // let listings = JSON.parse(localStorage.getItem('houseListing'));
 
     const newListings = [];
 
     listings.forEach(listing => {
 
       if (listing.hdpData) {
-        if (listing.beds.toString() === userInfo.numOfBeds) {
+        if (listing.beds.toString() === StateCtrl.getUserInfo().numOfBeds) {
 
           let price = listing.price.slice(2, 3) + listing.price.slice(4, 7);
           price = parseInt(price);
@@ -509,59 +559,61 @@ const AppCtrl = (() => {
         }
       }
     });
+
     return newListings;
   }
-  const narrowByPrice = (listings) => {
+  
+  const narrowByPrice = (searchResults) => {
 
-    const newListings = [];
+    const newSearchResults = [];
 
-    listings.forEach(listing => {
+    searchResults.forEach(searchResult => {
 
       // let price = listing.price.slice(2, 3) + listing.price.slice(4, 7);
       // price = parseInt(price);
 
-      if (listing.price <= parseInt(userInfo.price)) {
+      if (searchResult.price <= parseInt(StateCtrl.getUserInfo().price)) {
         // listing.price = price;
-        newListings.push(listing);
+        newSearchResults.push(searchResult);
       }
     });
-    console.log(newListings);
-    return newListings;
+
+    return newSearchResults;
   }
 
-  const narrowByWalkingDistance = (listings) => {
+  const narrowByWalkingDistance = (searchResults) => {
 
-    const newListings = [];
+    const newSearchResults = [];
     const r = 6371e3; // gives d in metres
-    for (unit in listings) {
-      var φ1 = (listings[unit].latLong.latitude) * Math.PI / 180;
+    for (unit in searchResults) {
+      var φ1 = (searchResults[unit].latLong.latitude) * Math.PI / 180;
       for (station in subwayData) {
         var φ2 = (subwayData[station].latLong.latitude) * Math.PI / 180;
-        var Δλ = ((subwayData[station].latLong.longitude - listings[unit].latLong.longitude)) * Math.PI / 180;
+        var Δλ = ((subwayData[station].latLong.longitude - searchResults[unit].latLong.longitude)) * Math.PI / 180;
         var d = Math.acos(Math.sin(φ1) * Math.sin(φ2) + Math.cos(φ1) * Math.cos(φ2) * Math.cos(Δλ)) * r;
 
         if (d <= 750) {
           // console.log('distance from unit at', listings[unit].latLong, 'to', subwayData[station].name, 'station is', Math.floor(d), 'meters')
-          listings[unit].subway = subwayData[station];
-          listings[unit].distance = Math.floor(d);
-          newListings.push({
-            ...listings[unit]
+          searchResults[unit].subway = subwayData[station];
+          searchResults[unit].distance = Math.floor(d);
+          newSearchResults.push({
+            ...searchResults[unit]
           });
         }
       }
     }
-    return newListings;
+    return newSearchResults;
   }
 
-  const narrowByDistanceToUofT = (listings) => {
+  const narrowByDistanceToUofT = (searchResults) => {
 
-    const newListings = [];
+    const newSearchResults = [];
 
     const waypoint0 = '43.66219,-79.3942';
 
-    for (let i = 0; i < listings.length; i++) {
+    for (let i = 0; i < searchResults.length; i++) {
 
-      const waypoint1 = listings[i].latLong.latitude + ',' + listings[i].latLong.longitude;
+      const waypoint1 = searchResults[i].latLong.latitude + ',' + searchResults[i].latLong.longitude;
 
       $.ajax({
         url: 'https://route.api.here.com/routing/7.2/calculateroute.json',
@@ -578,11 +630,11 @@ const AppCtrl = (() => {
       }).then(data => {
         const travelTime = data.response.route[0].summary.travelTime;
         if (Math.floor(travelTime / 60) <= 30) {
-          listings[i].travelTime = travelTime
-          newListings.push({
-            ...listings[i]
+          searchResults[i].travelTime = travelTime
+          newSearchResults.push({
+            ...searchResults[i]
           });
-          locations = newListings;
+          StateCtrl.setSearchResults(newSearchResults);
         }
       })
     }
@@ -609,25 +661,13 @@ const AppCtrl = (() => {
     handleFirstQuestion,
     handleSecondQuestion,
     handleThirdQuestion,
-    narrowByUnit,
+    narrowByUnitNum,
     narrowByPrice,
     narrowByWalkingDistance,
     narrowByDistanceToUofT,
     handleButtonClick
   }
 })();
-
-
-
-
-const saveToLocalStorage = () => {
-  localStorage.setItem('userInfo', JSON.stringify(userInfo));
-}
-
-
-const getListing = async function(){
-  localStorage.setItem('houseListing', JSON.stringify(listingsInfo.searchResults.mapResults));
-}
 
 
 AppCtrl.init();
