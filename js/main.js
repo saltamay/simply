@@ -1,16 +1,17 @@
 const StorageCtrl = (() => {
 
   const addeStateToStorage = (state) => {
-    let state;
+    let newState;
     // check if any items in local storage
     if (localStorage.getItem('state') === null) {
-      state = {
+      newState = {
         ...state
       }
-      localStorage.setItem('state', JSON.stringify(state));
+      localStorage.setItem('state', JSON.stringify(newState));
     } else { 
-      state = JSON.parse(localStorage.getItem('state'));
-      localStorage.setItem('state', JSON.stringify(state));
+      // newState = JSON.parse(localStorage.getItem('state'));
+      newState = state;
+      localStorage.setItem('state', JSON.stringify(newState));
     }
   };
 
@@ -44,10 +45,10 @@ const StateCtrl = (() => {
       like: [],
     },
     listings: listings.searchResults.mapResults,
-    map: null,
-    marker: null,
-    markerCluster: null,
-    infoWindow: null,
+    // map: null,
+    // marker: null,
+    // markerCluster: null,
+    // infoWindow: null,
     searchResults: [],
     match: {},
     index: 0
@@ -77,9 +78,7 @@ const StateCtrl = (() => {
         match
       }
       return userData;
-    },
-    saveToLocalStorage,
-    getListing,
+    }
   }
 })();
 
@@ -304,6 +303,7 @@ const UICtrl = (() => {
     const userInfo = StateCtrl.getUserInfo();
 
     let match = searchResults[index];
+    index++;
 
     let price = match.price.toString();
     price = '$' + price.charAt(0) + ',' + price.slice(1);
@@ -415,7 +415,9 @@ const UICtrl = (() => {
     })
 
     StateCtrl.setMatch(match);
-    StateCtrl.setIndex(index++);
+    StateCtrl.setIndex(index);
+    StorageCtrl.addeStateToStorage(StateCtrl.getState());
+    StateCtrl.logState();
   }
   
   function initMap() {
