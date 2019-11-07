@@ -271,6 +271,7 @@ const UICtrl = (() => {
     const userInfo = StateCtrl.getUserInfo();
 
     let match = searchResults[index];
+    index++;
 
     let price = match.price.toString();
     price = '$' + price.charAt(0) + ',' + price.slice(1);
@@ -382,7 +383,7 @@ const UICtrl = (() => {
     })
 
     StateCtrl.setMatch(match);
-    StateCtrl.setIndex(index++);
+    StateCtrl.setIndex(index);
   }
   
   function initMap() {
