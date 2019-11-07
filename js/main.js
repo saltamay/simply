@@ -89,14 +89,13 @@ const UICtrl = (() => {
     var q1 = `
 
   <header >
-  <nav class="red darken-2 center-align " role="navigation" style='height:5em'>
-      <div class="nav-wrapper center-align">
-          <a id="logo-container" href="#" class="brand-logo center-align" style="padding-top: 10px; filter:invert(1)">
-              <img src="./img/isolated-monochrome-white.svg" alt="" srcset="" style="width: 30px;">
-              <img class='hide-on-small-only' src="./img/default-monochrome-white.svg" alt="" srcset="" style="width: 96px; margin-left: 5px;">
+  <div class="nav" >
+      
+          <a id="logo-container" href="#">
+              <img class='hide-on-small-only' src="./img/download.png" alt="" srcset="" style="width: 135px;">
           </a>
-      </div>
-  </nav>
+     
+  </div>
 </header>
   
   <div class="container" id='q1' style="margin-top:100px" >
@@ -130,20 +129,10 @@ const UICtrl = (() => {
   </div>
 </div>
 
-<footer class="page-footer"  style='margin-top:100px; width:100vw; position:absolute; bottom:0px; '>
-<div class="container center-align">
-    <div class="col s12">
-        <p class="grey-text text-lighten-4">We are a team of college students working on this project like
-                it's our full time job.
-        </p>
-    </div>
-</div>
-
-    <div class="footer-copyright">
+<footer>
       <div class="container center-align">
       &copy; 2019 Simply 
       </div>
-    </div>
 </footer>
 `
     document.getElementById("mainContainer").innerHTML = q1;
@@ -155,15 +144,14 @@ const UICtrl = (() => {
     document.getElementById("mainContainer").innerHTML = `  
 
     <header >
-      <nav class="red darken-2 center-align " role="navigation" style='height:5em'>
-          <div class="nav-wrapper center-align">
-              <a id="logo-container" href="#" class="brand-logo center-align" style="padding-top: 10px; filter:invert(1)">
-                  <img src="./img/isolated-monochrome-white.svg" alt="" srcset="" style="width: 30px;">
-                  <img class='hide-on-small-only' src="./img/default-monochrome-white.svg" alt="" srcset="" style="width: 96px; margin-left: 5px;">
-              </a>
-          </div>
-      </nav>
-    </header>
+  <div class="nav" >
+      
+          <a id="logo-container" href="#">
+              <img class='hide-on-small-only' src="./img/download.png" alt="" srcset="" style="width: 135px;">
+          </a>
+     
+  </div>
+</header>
   
     <div class="container" id='q2' style="margin-top:100px" >
       <div class="row" >
@@ -208,18 +196,9 @@ const UICtrl = (() => {
       </div>
     </div>
 
-    <footer class="page-footer"  style='margin-top:100px; width:100vw; position:absolute; bottom:0px; '>
+    <footer>
       <div class="container center-align">
-        <div class="col s12">
-            <p class="grey-text text-lighten-4">We are a team of college students working on this project like
-            it's our full time job.
-            </p>
-        </div>
-      </div>
-      <div class="footer-copyright">
-        <div class="container center-align">
-        &copy; 2019 Simply 
-        </div>
+      &copy; 2019 Simply 
       </div>
     </footer>
     `;
@@ -232,14 +211,13 @@ const UICtrl = (() => {
     const q4 = `
   
   <header >
-  <nav class="red darken-2 center-align " role="navigation" style='height:5em'>
-      <div class="nav-wrapper center-align">
-          <a id="logo-container" href="#" class="brand-logo center-align" style="padding-top: 10px; filter:invert(1)">
-              <img src="./img/isolated-monochrome-white.svg" alt="" srcset="" style="width: 30px;">
-              <img class='hide-on-small-only' src="./img/default-monochrome-white.svg" alt="" srcset="" style="width: 96px; margin-left: 5px;">
+  <div class="nav" >
+      
+          <a id="logo-container" href="#">
+              <img class='hide-on-small-only' src="./img/download.png" alt="" srcset="" style="width: 135px;">
           </a>
-      </div>
-  </nav>
+     
+  </div>
 </header>
   
   
@@ -275,20 +253,10 @@ const UICtrl = (() => {
   </div>
 </div>
 
-<footer class="page-footer"  style='margin-top:100px; width:100vw; position:absolute; bottom:0px; '>
-<div class="container center-align">
-    <div class="col s12">
-        <p class="grey-text text-lighten-4">We are a team of college students working on this project like
-                it's our full time job.
-        </p>
-    </div>
-</div>
-
-    <div class="footer-copyright">
+<footer>
       <div class="container center-align">
       &copy; 2019 Simply 
       </div>
-    </div>
 </footer>
 `
 

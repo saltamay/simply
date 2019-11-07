@@ -11,14 +11,22 @@
   font-family: 'Roboto', sans-serif;
 }
 
-header {
-  height: 6.5vh;
+.nav {
+  background-color: #EF5350;
+  /* height: 90% !important; */
+  padding: 5px 0 8px 50px;
 }
 
-nav {
-  height: 100%;
-  padding: 0 90px 8px 90px;
+footer {
+  background-color: #EF5350;
+  color: #fff;
+  margin-top:100px; width:100vw; position:absolute; bottom:0px;
+  padding: 10px 0;
 }
+/* header nav a {
+  color: #e2e2e2 !important;
+  text-align: left !important;
+} */
 
 /**************************************/
 #mainContainer{
