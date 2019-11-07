@@ -1,16 +1,48 @@
-// let userInfo = {};
-// let map;
-// let marker; 
-// // var markerCluster;
-// let infoWindow;
-// let locations;
-// let match;
-// let index = 0;
+const StorageCtrl = (() => {
+
+  const addeStateToStorage = (state) => {
+    let state;
+    // check if any items in local storage
+    if (localStorage.getItem('state') === null) {
+      state = {
+        ...state
+      }
+      localStorage.setItem('state', JSON.stringify(state));
+    } else { 
+      state = JSON.parse(localStorage.getItem('state'));
+      localStorage.setItem('state', JSON.stringify(state));
+    }
+  };
+
+  const getStateFromStorage = () => {
+    let state;
+
+    if (localStorage.getItem('state') === null) {
+      state = {}
+    } else {
+      state = JSON.parse(localStorage.getItem('state'));
+    }
+
+    return state;
+  }
+
+  return {
+    addeStateToStorage,
+    getStateFromStorage
+  }
+
+})();
 
 const StateCtrl = (() => {
 
   const state = {
-    userInfo: {},
+    userInfo: {
+      numOfBeds: '',
+      price: 0,
+      mostImportant: '',
+      bestMatch: [],
+      like: [],
+    },
     listings: listings.searchResults.mapResults,
     map: null,
     marker: null,
@@ -21,14 +53,7 @@ const StateCtrl = (() => {
     index: 0
   }
 
-  const saveToLocalStorage = () => {
-    localStorage.setItem('userInfo', JSON.stringify(userInfo));
-  }
-
-  const getListing = async function () {
-    localStorage.setItem('houseListing', JSON.stringify(listingsInfo.searchResults.mapResults));
-  }
-
+  // Public functions
   return {
     logState: () => console.log(state),
     getState: () => state,
@@ -45,6 +70,14 @@ const StateCtrl = (() => {
     getIndex: () => state.index,
     setIndex: (index) => state.index = index,
     getMap: () => state.map,
+    getUserData: () => {
+      let userData = {
+        userInfo,
+        searchResults,
+        match
+      }
+      return userData;
+    },
     saveToLocalStorage,
     getListing,
   }
@@ -442,7 +475,7 @@ const UICtrl = (() => {
   }
 })();
 
-const AppCtrl = (() => {
+const AppCtrl = ((UICtrl, StateCtrl, StorageCtrl) => {
 
   const init = () => {
 
@@ -648,6 +681,7 @@ const AppCtrl = (() => {
         UICtrl.displayResults();
         break;
       case 'bestMatch':
+        StateCtrl.getUserInfo().bestMatch = 
         UICtrl.displayResults();
         break;
       case 'like':
@@ -667,7 +701,7 @@ const AppCtrl = (() => {
     narrowByDistanceToUofT,
     handleButtonClick
   }
-})();
+})(UICtrl, StateCtrl, StorageCtrl);
 
 
 AppCtrl.init();
