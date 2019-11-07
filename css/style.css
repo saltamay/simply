@@ -1,4 +1,3 @@
-
 /* Custom Stylesheet */
 /**
  * Use this file to override Materialize files so you can update
@@ -20,6 +19,144 @@ nav {
   height: 100%;
   padding: 0 90px 8px 90px;
 }
+
+/**************************************/
+#mainContainer{
+  min-height:100vh;
+}
+.main-page{
+  background:#EF5350;
+  display:-webkit-box;
+  display:-ms-flexbox;
+  display:-webkit-flex;
+  display:-moz-flex;
+  display:-ms-flex;
+  display:-o-flex;
+  display:flex;
+  -webkit-flex-direction:column;
+  -moz-flex-direction:column;
+  -ms-flex-direction:column;
+  -o-flex-direction:column;
+  flex-direction:column;
+  justify-content:center;
+  -ms-align-items:center;
+  align-items:center;
+  min-height:100vh;
+  position:relative;
+  padding-bottom:300px;
+}
+
+.main-page img{
+  vertical-align:top;
+  max-width:100%;
+  max-height:100%;
+}
+
+.main-page-box{
+  padding:0 20px;
+  margin-top:10px;
+  margin-bottom:20px;
+  text-align:center;
+}
+
+.main-page-title{
+  font-weight:700;
+  font-size:20px;
+  color:#fff;
+  margin-bottom:25px;
+}
+
+.main-page-box p{
+  font-size:16px;
+  color:#fff;
+  margin-bottom:25px;
+}
+
+.main-page-box button{
+  background:#52A39A;
+  color:#fff;
+}
+
+#main-page-marker{
+  position:absolute;
+  top:auto;
+  bottom:140px;
+  left:auto;
+  right:auto;
+  max-width:30%;
+  max-height:170px;
+}
+
+#main-page-map{
+  position:absolute;
+  bottom:0;
+  left:0;
+  right:0;
+  max-width:560px;
+}
+
+#main-page-logo{
+  position:absolute;
+  bottom:0;
+  left:0;
+  right:0;
+}
+
+@media screen and (min-width:768px){
+  .main-page-box{
+    margin-top:50px;
+    bottom:50px;
+    margin-left:38%;
+    z-index:1;
+  }
+  .main-page-title{
+    font-weight:700;
+    font-size:50px;
+    color:#fff;
+    margin-bottom:25px;
+  }
+
+  .main-page-box p{
+    font-size:25px;
+    color:#fff;
+    margin-bottom:25px;
+  }
+  #main-page-map{
+    position:fixed;
+    left:0;
+    right:45%;
+    max-width:100%;
+  }
+
+  #main-page-logo{
+    position:fixed;
+    left:55%;
+  }
+}
+
+@media screen and (min-width:992px){
+  .main-page{
+    padding-bottom:0;
+  }
+  #main-page-marker{
+    position:fixed;
+    left:30px;
+    right:auto;
+    top:50px;
+    bottom:200px;
+    max-height:none;
+  }
+  #main-page-map{
+    position:fixed;
+    right:45%;
+  }
+
+  #main-page-logo{
+    position:fixed;
+    left:55%;
+  }
+}
+/***************** END *******************/
 
 .signin {
   border: 1px solid #EF5350;
@@ -356,4 +493,4 @@ nav {
 
 .card-box-imitation-bar.bar-3 span{
   height:calc(100% - 3px);
-}
+} 

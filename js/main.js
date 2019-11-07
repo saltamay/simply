@@ -416,6 +416,7 @@ const UICtrl = (() => {
 
     StateCtrl.setMatch(match);
     StateCtrl.setIndex(index);
+
     StorageCtrl.addeStateToStorage(StateCtrl.getState());
     StateCtrl.logState();
   }
