@@ -684,10 +684,11 @@ const AppCtrl = ((UICtrl, StateCtrl, StorageCtrl) => {
         UICtrl.displayResults();
         break;
       case 'bestMatch':
-        StateCtrl.getUserInfo().bestMatch = 
+        StateCtrl.getUserInfo().bestMatch.push(StateCtrl.getMatch());
         UICtrl.displayResults();
         break;
       case 'like':
+        StateCtrl.getUserInfo().like.push(StateCtrl.getMatch());
         UICtrl.displayResults();
         break;
     }
