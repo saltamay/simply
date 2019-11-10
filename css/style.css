@@ -23,10 +23,11 @@ footer {
   margin-top:100px; width:100vw; position:absolute; bottom:0px;
   padding: 10px 0;
 }
-/* header nav a {
-  color: #e2e2e2 !important;
-  text-align: left !important;
-} */
+
+#listingInfo {
+  height: 100%;
+  overflow: scroll;
+}
 
 /**************************************/
 #mainContainer{

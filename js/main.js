@@ -264,7 +264,7 @@ const UICtrl = (() => {
 
   };
 
-  const displayResults = function () {
+  const displayResults = () => {
 
     const searchResults = StateCtrl.getSearchResults();
     let index = StateCtrl.getIndex();
@@ -302,7 +302,7 @@ const UICtrl = (() => {
     }).then(data => {
       // Display best match
       let results =
-        `<div id="results" class="row">
+      `<div id="results" class="row">
         <div id="listingInfo" class="col s12 m3">
           <div class="card">
             <div class="listing-address">
@@ -325,7 +325,7 @@ const UICtrl = (() => {
                   <i class="material-icons">directions_walk</i>
                   <span class="listing-convenience">WalkScore: ${neighbourhoods[zipcode].walkScore}</span>
                 </div>
-            </div>
+              </div>
       `;
       switch (userInfo.mostImportant) {
         case 'price':
@@ -368,18 +368,20 @@ const UICtrl = (() => {
         <a class="btn-floating btn-large waves-effect waves-light blue lighten-2"><i id="like" class="material-icons">thumb_up</i></a>
       </div>
       </div>
+      <div id="bestMatchedListings"></div>
       </div>
       <div id="map" class="col s12 m9"></div>
     </div> 
     `
 
       document.getElementById("mainContainer").innerHTML = results;
+      initMap();
+      displayBestMatchedListings();
       // Add event listeners
       document.getElementById('dislike').addEventListener('click', (e) => { AppCtrl.handleButtonClick(e); });
       document.getElementById('bestMatch').addEventListener('click', (e) => { AppCtrl.handleButtonClick(e); });
       document.getElementById('like').addEventListener('click', (e) => { AppCtrl.handleButtonClick(e); });
       
-      initMap();
     })
 
     StateCtrl.setMatch(match);
@@ -389,7 +391,7 @@ const UICtrl = (() => {
     StateCtrl.logState();
   }
   
-  function initMap() {
+  const initMap = () => {
 
     const match = StateCtrl.getMatch();
     let map = StateCtrl.getMap();
@@ -436,19 +438,59 @@ const UICtrl = (() => {
     //   {imagePath: 'https://github.com/googlemaps/v3-utility-library/blob/master/markerclusterer/images/m1.png?raw=true'}
     //   );
   }
+
+  const displayBestMatchedListings = () => {
+      
+      // Check if there is any loved listings
+      if (StateCtrl.getUserInfo().bestMatch.length !== 0) {
+        
+        const ul = document.createElement('ul');
+        ul.classList.add('collection', 'with-header');
+        // Header for the best match collection
+        const headerItem = document.createElement('li');
+        headerItem.classList.add('collection-header');
+        headerItem.innerText = 'Love it';
+        // Append header
+        ul.appendChild(headerItem);
+
+        StateCtrl.getUserInfo().bestMatch.forEach(bestMatch => {
+          // HTML code for best match
+          const listItem = document.createElement('li');
+          listItem.classList.add('collection-item', 'avatar');
+
+          listItem.innerHTML =
+          `
+          <img src="${bestMatch.imgSrc}" alt="Listing Picture" class="circle">
+          <p>${bestMatch.hdpData.homeInfo.streetAddress}<br>
+          $${bestMatch.price.toString().charAt(0) + ',' + bestMatch.price.toString().slice(1)}<br>
+          <i class="material-icons">hotel</i>
+          <span class="listing-bedrooms">${bestMatch.beds}</span>
+          <i class="material-icons">hot_tub</i>
+          <span class="listing-bathrooms">${bestMatch.baths}</span>
+          <i class="material-icons">directions_walk</i>
+          <span class="listing-convenience">WalkScore: ${neighbourhoods['M5R'].walkScore}</span>
+          </p>
+          `
+          ul.appendChild(listItem);
+        })
+        console.log(ul);
+        document.getElementById('bestMatchedListings').appendChild(ul);
+      }
+    }
   
   return {
     displayFirstQuestion,
     displaySecondQuestion,
     displayThirdQuestion,
     displayResults,
-    initMap
+    initMap,
+    displayBestMatchedListings
   }
 })();
 
 const AppCtrl = ((UICtrl, StateCtrl, StorageCtrl) => {
 
-  const init = () => {
+  function init() {
 
     localStorage.clear(); //clears the local storgage
 
