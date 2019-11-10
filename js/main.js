@@ -369,6 +369,7 @@ const UICtrl = (() => {
       </div>
       </div>
       <div id="bestMatchedListings"></div>
+      <div id="likedListings"></div>
       </div>
       <div id="map" class="col s12 m9"></div>
     </div> 
@@ -377,6 +378,7 @@ const UICtrl = (() => {
       document.getElementById("mainContainer").innerHTML = results;
       initMap();
       displayBestMatchedListings();
+      displayLikedListings();
       // Add event listeners
       document.getElementById('dislike').addEventListener('click', (e) => { AppCtrl.handleButtonClick(e); });
       document.getElementById('bestMatch').addEventListener('click', (e) => { AppCtrl.handleButtonClick(e); });
@@ -476,7 +478,45 @@ const UICtrl = (() => {
         console.log(ul);
         document.getElementById('bestMatchedListings').appendChild(ul);
       }
+  }
+
+  const displayLikedListings = () => {
+    // Check if there is any loved listings
+    if (StateCtrl.getUserInfo().like.length !== 0) {
+
+      const ul = document.createElement('ul');
+      ul.classList.add('collection', 'with-header');
+      // Header for the best match collection
+      const headerItem = document.createElement('li');
+      headerItem.classList.add('collection-header');
+      headerItem.innerText = 'Maybe';
+      // Append header
+      ul.appendChild(headerItem);
+
+      StateCtrl.getUserInfo().like.forEach(like => {
+        // HTML code for best match
+        const listItem = document.createElement('li');
+        listItem.classList.add('collection-item', 'avatar');
+
+        listItem.innerHTML =
+          `
+          <img src="${like.imgSrc}" alt="Listing Picture" class="circle">
+          <p>${like.hdpData.homeInfo.streetAddress}<br>
+          $${like.price.toString().charAt(0) + ',' + like.price.toString().slice(1)}<br>
+          <i class="material-icons">hotel</i>
+          <span class="listing-bedrooms">${like.beds}</span>
+          <i class="material-icons">hot_tub</i>
+          <span class="listing-bathrooms">${like.baths}</span>
+          <i class="material-icons">directions_walk</i>
+          <span class="listing-convenience">WalkScore: ${neighbourhoods['M5R'].walkScore}</span>
+          </p>
+          `
+        ul.appendChild(listItem);
+      })
+      console.log(ul);
+      document.getElementById('likedListings').appendChild(ul);
     }
+  }
   
   return {
     displayFirstQuestion,
