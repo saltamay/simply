@@ -363,11 +363,11 @@ const UICtrl = (() => {
 
       results += `
       </div>
-      <div class="card-action card-buttons center-align">
+      </div>
+      <div class="card-buttons center-align">
         <a class="btn-floating btn-large waves-effect waves-light pink lighten-2"><i id="dislike" class="material-icons">thumb_down</i></a>
         <a class="btn-floating btn-large waves-effect waves-light red lighten-1 favorite"><i id="bestMatch" class="material-icons">favorite</i></a>
         <a class="btn-floating btn-large waves-effect waves-light blue lighten-2"><i id="like" class="material-icons">thumb_up</i></a>
-      </div>
       </div>
       <div id="bestMatchedListings"></div>
       <div id="likedListings"></div>
@@ -386,6 +386,16 @@ const UICtrl = (() => {
       document.getElementById('like').addEventListener('click', (e) => { AppCtrl.handleButtonClick(e); });
       
     })
+
+    // Get important places around
+    const apiKey = 'AIzaSyAVRcQaZXipelHJy9FFybcFT9VJDmbyBvA';
+    const queryURL = 'https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=';
+    const endPoint = queryURL + waypoint1 + '&radius=1500&type=library&key=' + apiKey;
+    console.log(endPoint);
+    $.ajax({
+      url: endPoint,
+      type: 'GET',
+    }).then(res => console.log(res));
 
     StateCtrl.setMatch(match);
     StateCtrl.setIndex(index);
