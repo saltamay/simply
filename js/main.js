@@ -36,7 +36,7 @@ const StorageCtrl = (() => {
 
 const StateCtrl = (() => {
 
-  const state = {
+  let state = {
     userInfo: {
       numOfBeds: '',
       price: 0,
@@ -58,6 +58,7 @@ const StateCtrl = (() => {
   return {
     logState: () => console.log(state),
     getState: () => state,
+    setState: (newState) => state = { ...newState },
     getUserInfo: () => state.userInfo,
     getListings: () => state.listings,
     addUserInfo: (userInfo) => state.userInfo = userInfo,
@@ -542,28 +543,37 @@ const AppCtrl = ((UICtrl, StateCtrl, StorageCtrl) => {
 
   function init() {
 
-    localStorage.clear(); //clears the local storgage
+    // localStorage.clear(); //clears the local storgage
 
     // getListing();
-    
-    document.querySelector('#getStarted').addEventListener('click', (e) => {
-      
-      e.preventDefault();
-      
-      UICtrl.displayFirstQuestion();
+    const newState = StorageCtrl.getStateFromStorage();
+    console.log(newState);
+    if (newState.hasOwnProperty('userInfo')) {
 
-      // Add event listeners to UI elements
-      document.querySelector('[data-value ~= "1"]').addEventListener('click', (e) => {
-        handleFirstQuestion(e);
-      });
-      document.querySelector('[data-value ~= "2"]').addEventListener('click', (e) => {
-        handleFirstQuestion(e);
-      });
-      document.querySelector('[data-value ~= "3"]').addEventListener('click', (e) => {
-        handleFirstQuestion(e);
-      });
+      StateCtrl.setState(newState);
+      UICtrl.displayResults();
 
-    });
+    } else {
+
+      document.querySelector('#getStarted').addEventListener('click', (e) => {
+
+        e.preventDefault();
+
+        UICtrl.displayFirstQuestion();
+
+        // Add event listeners to UI elements
+        document.querySelector('[data-value ~= "1"]').addEventListener('click', (e) => {
+          handleFirstQuestion(e);
+        });
+        document.querySelector('[data-value ~= "2"]').addEventListener('click', (e) => {
+          handleFirstQuestion(e);
+        });
+        document.querySelector('[data-value ~= "3"]').addEventListener('click', (e) => {
+          handleFirstQuestion(e);
+        });
+
+      });
+    }
   }
 
   const handleFirstQuestion = (e) => {
