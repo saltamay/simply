@@ -26,7 +26,7 @@ This is how it works: first, we get to know the user by asking few simple questi
 
 Simply Demo:
 
-![Simply Demo](/docs/demo.gif?raw=true)
+![Simply Demo](/img/demo01.png?raw=true)
 
 ## Getting Started
 
