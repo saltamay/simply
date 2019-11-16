@@ -26,7 +26,7 @@ This is how it works: first, we get to know the user by asking few simple questi
 
 Simply Demo:
 
-![Simply Demo](/img/demo01.png?raw=true)
+![Simply Demo](/img/demo/demo01.png?raw=true)
 
 ## Getting Started
 
@@ -42,6 +42,8 @@ Simply, go to [Simply's website](https://saltamay.github.io/simply/) and give it
 
 * [HTML][CSS] - Custom UI Components
 * [Materialize CSS](https://materializecss.com/) - The CSS framework of choice
+* jQuery
+* JavaScript
 
 ## Motivation
 
