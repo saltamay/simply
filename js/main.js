@@ -627,12 +627,14 @@ const AppCtrl = ((UICtrl, StateCtrl, StorageCtrl) => {
         UICtrl.displayResults();
         break;
       case 'transportation':
-        searchResults = narrowByWalkingDistance(searchResults).filter(listing => {
+        searchResults = narrowByWalkingDistance(searchResults)
+        // .filter(listing => {
 
-          if (listing.price <= parseInt(StateCtrl.getUserInfo().price)) {
-            return listing;
-          }
-        })
+        //   if (listing.price <= parseInt(StateCtrl.getUserInfo().price)) {
+        //     return listing;
+        //   }
+        // })
+        console.log(searchResults)
         StateCtrl.setSearchResults(searchResults);
         UICtrl.displayResults();
         break;
@@ -692,19 +694,21 @@ const AppCtrl = ((UICtrl, StateCtrl, StorageCtrl) => {
     const newSearchResults = [];
     const r = 6371e3; // gives d in metres
     for (unit in searchResults) {
-      var φ1 = (searchResults[unit].latLong.latitude) * Math.PI / 180;
+      const φ1 = (searchResults[unit].latLong.latitude) * Math.PI / 180;
       for (station in subwayData) {
-        var φ2 = (subwayData[station].latLong.latitude) * Math.PI / 180;
-        var Δλ = ((subwayData[station].latLong.longitude - searchResults[unit].latLong.longitude)) * Math.PI / 180;
-        var d = Math.acos(Math.sin(φ1) * Math.sin(φ2) + Math.cos(φ1) * Math.cos(φ2) * Math.cos(Δλ)) * r;
+        const φ2 = (subwayData[station].latLong.latitude) * Math.PI / 180;
+        const Δλ = ((subwayData[station].latLong.longitude - searchResults[unit].latLong.longitude)) * Math.PI / 180;
+        const d = Math.acos(Math.sin(φ1) * Math.sin(φ2) + Math.cos(φ1) * Math.cos(φ2) * Math.cos(Δλ)) * r;
 
         if (d <= 750) {
+          console.log(searchResults[unit]);
           // console.log('distance from unit at', listings[unit].latLong, 'to', subwayData[station].name, 'station is', Math.floor(d), 'meters')
           searchResults[unit].subway = subwayData[station];
           searchResults[unit].distance = Math.floor(d);
           newSearchResults.push({
             ...searchResults[unit]
           });
+          break;
         }
       }
     }
