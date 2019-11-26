@@ -388,14 +388,14 @@ const UICtrl = (() => {
     })
 
     // Get important places around
-    const apiKey = 'AIzaSyDPK3GESVBe72AhcFb263OJt7X8S7QPQl4';
-    const queryURL = 'https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=';
-    const endPoint = queryURL + waypoint1 + '&radius=1500&type=library&key=' + apiKey;
-    console.log(endPoint);
-    $.ajax({
-      url: endPoint,
-      type: 'GET',
-    }).then(res => console.log(res));
+    // const apiKey = 'AIzaSyDPK3GESVBe72AhcFb263OJt7X8S7QPQl4';
+    // const queryURL = 'https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=';
+    // const endPoint = queryURL + waypoint1 + '&radius=1500&type=library&key=' + apiKey;
+    // console.log(endPoint);
+    // $.ajax({
+    //   url: endPoint,
+    //   type: 'GET',
+    // }).then(res => console.log(res));
 
     StateCtrl.setMatch(match);
     StateCtrl.setIndex(index);
