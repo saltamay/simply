@@ -8,7 +8,7 @@ const StorageCtrl = (() => {
         ...state
       }
       localStorage.setItem('state', JSON.stringify(newState));
-    } else { 
+    } else {
       // newState = JSON.parse(localStorage.getItem('state'));
       newState = state;
       localStorage.setItem('state', JSON.stringify(newState));
@@ -62,7 +62,7 @@ const StateCtrl = (() => {
     getUserInfo: () => state.userInfo,
     getListings: () => state.listings,
     addUserInfo: (userInfo) => state.userInfo = userInfo,
-    setSearchResults: (searchResults) => { 
+    setSearchResults: (searchResults) => {
       state.searchResults = searchResults;
       return searchResults;
     },
@@ -141,7 +141,7 @@ const UICtrl = (() => {
   };
 
   const displaySecondQuestion = (e) => {
-        
+
     document.getElementById("mainContainer").innerHTML = `  
 
     <header >
@@ -204,7 +204,7 @@ const UICtrl = (() => {
     </footer>
     `;
 
-    
+
   };
 
   const displayThirdQuestion = () => {
@@ -303,7 +303,7 @@ const UICtrl = (() => {
     }).then(data => {
       // Display best match
       let results =
-      `<div id="results" class="row">
+        `<div id="results" class="row">
         <div id="listingInfo" class="col s12 m3">
           <div class="card">
             <div class="listing-address">
@@ -384,11 +384,11 @@ const UICtrl = (() => {
       document.getElementById('dislike').addEventListener('click', (e) => { AppCtrl.handleButtonClick(e); });
       document.getElementById('bestMatch').addEventListener('click', (e) => { AppCtrl.handleButtonClick(e); });
       document.getElementById('like').addEventListener('click', (e) => { AppCtrl.handleButtonClick(e); });
-      
+
     })
 
     // Get important places around
-    const apiKey = 'AIzaSyAVRcQaZXipelHJy9FFybcFT9VJDmbyBvA';
+    const apiKey = 'AIzaSyDPK3GESVBe72AhcFb263OJt7X8S7QPQl4';
     const queryURL = 'https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=';
     const endPoint = queryURL + waypoint1 + '&radius=1500&type=library&key=' + apiKey;
     console.log(endPoint);
@@ -403,7 +403,7 @@ const UICtrl = (() => {
     StorageCtrl.addeStateToStorage(StateCtrl.getState());
     StateCtrl.logState();
   }
-  
+
   const initMap = () => {
 
     const match = StateCtrl.getMatch();
@@ -453,25 +453,25 @@ const UICtrl = (() => {
   }
 
   const displayBestMatchedListings = () => {
-      
-      // Check if there is any loved listings
-      if (StateCtrl.getUserInfo().bestMatch.length !== 0) {
-        
-        const ul = document.createElement('ul');
-        ul.classList.add('collection', 'with-header');
-        // Header for the best match collection
-        const headerItem = document.createElement('li');
-        headerItem.classList.add('collection-header');
-        headerItem.innerText = 'Love it';
-        // Append header
-        ul.appendChild(headerItem);
 
-        StateCtrl.getUserInfo().bestMatch.forEach(bestMatch => {
-          // HTML code for best match
-          const listItem = document.createElement('li');
-          listItem.classList.add('collection-item', 'avatar');
+    // Check if there is any loved listings
+    if (StateCtrl.getUserInfo().bestMatch.length !== 0) {
 
-          listItem.innerHTML =
+      const ul = document.createElement('ul');
+      ul.classList.add('collection', 'with-header');
+      // Header for the best match collection
+      const headerItem = document.createElement('li');
+      headerItem.classList.add('collection-header');
+      headerItem.innerText = 'Love it';
+      // Append header
+      ul.appendChild(headerItem);
+
+      StateCtrl.getUserInfo().bestMatch.forEach(bestMatch => {
+        // HTML code for best match
+        const listItem = document.createElement('li');
+        listItem.classList.add('collection-item', 'avatar');
+
+        listItem.innerHTML =
           `
           <img src="${bestMatch.imgSrc}" alt="Listing Picture" class="circle">
           <p>${bestMatch.hdpData.homeInfo.streetAddress}<br>
@@ -484,11 +484,11 @@ const UICtrl = (() => {
           <span class="listing-convenience">WalkScore: ${neighbourhoods['M5R'].walkScore}</span>
           </p>
           `
-          ul.appendChild(listItem);
-        })
-        console.log(ul);
-        document.getElementById('bestMatchedListings').appendChild(ul);
-      }
+        ul.appendChild(listItem);
+      })
+      console.log(ul);
+      document.getElementById('bestMatchedListings').appendChild(ul);
+    }
   }
 
   const displayLikedListings = () => {
@@ -528,7 +528,7 @@ const UICtrl = (() => {
       document.getElementById('likedListings').appendChild(ul);
     }
   }
-  
+
   return {
     displayFirstQuestion,
     displaySecondQuestion,
@@ -668,7 +668,7 @@ const AppCtrl = ((UICtrl, StateCtrl, StorageCtrl) => {
 
     return newListings;
   }
-  
+
   const narrowByPrice = (searchResults) => {
 
     const newSearchResults = [];
