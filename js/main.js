@@ -44,7 +44,7 @@ const StateCtrl = (() => {
       bestMatch: [],
       like: [],
     },
-    listings: listings.searchResults.mapResults,
+    listings: listings.searchResults.listResults,
     // map: null,
     // marker: null,
     // markerCluster: null,
